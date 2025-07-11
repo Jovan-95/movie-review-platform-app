@@ -36,7 +36,6 @@ function Sidebar() {
         </div>
         <div className="logout">
           <div>
-            {" "}
             <img src={logoutIcon} alt="logout icon" />
           </div>
         </div>

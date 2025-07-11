@@ -14,14 +14,6 @@ html {
   scroll-behavior: smooth;
 }
 
-.d-none {
-  display: none;
-}
-
-.d-block {
-  display: block;
-}
-
 /* Globalno za sve elemente ako žele da skroluju */
 * {
   scrollbar-width: thin; /* Firefox */
@@ -45,4 +37,35 @@ html {
 
 *::-webkit-scrollbar-thumb:hover {
   background-color: #1f3b70;
+}
+
+input {
+  padding: 8px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none; /* uklanja default plavi okvir */
+  // border: 2px solid #2a5298; /* plavi okvir po tvojoj boji */
+  box-shadow: 0 0 8px #193a73; /* dodatni sjaj za fokus */
+  background-color: #f0f4ff; /* blaga promena pozadine (opcionalno) */
+  transition: all 0.2s ease-in-out;
+}
+
+input::placeholder {
+  color: white;
+}
+
+// Helpers
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.mr-16 {
+  margin-right: 16px;
 }

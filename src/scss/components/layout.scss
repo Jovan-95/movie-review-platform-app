@@ -1,7 +1,64 @@
-.header {
-  background: linear-gradient(to right, #2a5298, #141e30);
-  height: 200px;
+.header-wrapper {
+  background: linear-gradient(to top, #2a5298, #141e30);
+  height: 240px;
   width: 100%;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #5d6f81;
+    padding-block: 12px;
+
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      margin-left: 40px;
+      img {
+        margin-right: 8px;
+        cursor: pointer;
+      }
+      .header-search {
+        background-color: transparent;
+        border: none;
+        color: white;
+      }
+    }
+    .time-wrapper {
+      display: flex;
+      align-items: center;
+      .time {
+        color: white;
+        padding-inline: 8px;
+      }
+    }
+    .profile-wrapper {
+      display: flex;
+      align-items: center;
+      margin-right: 40px;
+      div {
+        margin-left: 12px;
+        cursor: pointer;
+      }
+    }
+  }
+  .boxes-wrapper {
+    margin-top: 40px;
+    margin-inline: 40px;
+    display: flex;
+    justify-content: space-between;
+    .box {
+      border: 1px solid #72829c;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      width: 100%;
+
+      div {
+        font-size: 24px;
+        color: white;
+      }
+    }
+  }
 }
 .content-wrapper {
   margin: 40px;

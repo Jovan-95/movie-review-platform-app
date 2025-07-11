@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-  box-shadow: 6px 0px 40px 0px #d0d5dd;
+  box-shadow: -2px 0px 15px 0px #d0d5dd;
   .sidebar-logo-wrapper {
     display: flex;
     justify-content: center;
@@ -28,6 +28,10 @@
       color: $text-primary;
       cursor: pointer;
       margin-top: 8px;
+      transition: 0.3s;
+    }
+    .sidebar-item:hover {
+      background-color: #d0d5dd;
     }
   }
   .sidebar-bottom-wrapper {

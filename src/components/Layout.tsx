@@ -1,11 +1,12 @@
 import Sidebar from "./Sidebar";
+import Header from "./Header";
 
 function Layout() {
   return (
     <div className="wrapper">
       <Sidebar />
       <div className="main">
-        <div className="header">Header</div>
+        <Header />
         <div className="content-wrapper">
           <div className="content">
             <h1>TEST</h1>
