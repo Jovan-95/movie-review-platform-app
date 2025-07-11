@@ -1,0 +1,49 @@
+@import "../variables.scss";
+
+.sidebar {
+  position: fixed;
+  background-color: white;
+  width: 280px;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  box-shadow: 6px 0px 40px 0px #d0d5dd;
+  .sidebar-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .sidebar-logo-text {
+      font-size: 26px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+  }
+  .sidebar-nav-wrapper {
+    margin-bottom: 250px;
+    .sidebar-item {
+      padding: 8px 16px;
+      color: $text-primary;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+  }
+  .sidebar-bottom-wrapper {
+    border-top: 2px solid #d0d5dd;
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .profile-info-wrapper {
+      .sidebar-item {
+        color: $text-primary;
+        cursor: pointer;
+      }
+    }
+    .logout {
+      cursor: pointer;
+    }
+  }
+}

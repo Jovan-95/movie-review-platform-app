@@ -1,0 +1,48 @@
+@import "./scss/components/sidebar.scss";
+@import "./scss/components/layout.scss";
+@import "./scss/app-wrapper.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+/* Globalno za sve elemente ako žele da skroluju */
+* {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #2a5298 #ffffff;
+}
+
+/* Scrollbar stilovi za WebKit browsere (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #141e30;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #2a5298;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #1f3b70;
+}

@@ -1,0 +1,19 @@
+.header {
+  background: linear-gradient(to right, #2a5298, #141e30);
+  height: 200px;
+  width: 100%;
+}
+.content-wrapper {
+  margin: 40px;
+  .content {
+    background: white;
+
+    height: 500px;
+    overflow-y: scroll;
+    box-shadow: 6px 0px 40px 0px #d0d5dd;
+
+    border-radius: 12px;
+    padding: 16px;
+    width: 100%;
+  }
+}
