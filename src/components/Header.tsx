@@ -1,8 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import searchIcon from "../assets/icons/search-icon.svg";
 import bellIcon from "../assets/icons/bell-icon.svg";
 import profileIcon from "../assets/icons/profile-icon.svg";
+import Modal from "./Modal";
+import { useState } from "react";
 
 function Header() {
+  const [notificationsModal, setNotificationsModal] = useState(false);
+
+  function showNotificationsModal() {
+    setNotificationsModal((prev) => !prev);
+  }
+
   return (
     <div className="header-wrapper">
       <div className="header">
@@ -20,7 +29,7 @@ function Header() {
         </div>
         <div className="profile-wrapper">
           <div>
-            <img src={bellIcon} alt="" />
+            <img onClick={showNotificationsModal} src={bellIcon} alt="" />
           </div>
           <div>
             <img src={profileIcon} alt="" />
@@ -44,6 +53,22 @@ function Header() {
           <div>Text</div>
           <div>100</div>
         </div>
+      </div>
+      {/* Modal */}
+      <div className={notificationsModal ? "d-block" : "d-none"}>
+        <Modal>
+          <div>
+            <div style={{ textAlign: "right" }}>
+              <span
+                onClick={() => setNotificationsModal(false)}
+                style={{ cursor: "pointer" }}
+              >
+                X
+              </span>
+            </div>
+            <div>Notifications:</div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

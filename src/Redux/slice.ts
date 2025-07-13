@@ -14,7 +14,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Add logic for login
     addLoggedUser: (state, action) => {},
+
+    // Add logic for logout
     logoutUser: (state) => {},
   },
 });

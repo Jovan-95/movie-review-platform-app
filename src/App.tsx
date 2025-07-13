@@ -7,12 +7,17 @@ const Movies = lazy(() => import("./pages/Movies"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Admin = lazy(() => import("./pages/Admin"));
+const Register = lazy(() => import("./pages/Register"));
+const Login = lazy(() => import("./pages/Login"));
 
 function App() {
   return (
     <BrowserRouter>
       <Suspense fallback={<h2>Loading...</h2>}>
         <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/movies" element={<Movies />} />

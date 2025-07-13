@@ -1,0 +1,98 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Jovan Vuksanovic",
+      "email": "jovan@email.com",
+      "password": "123456",
+      "role": "admin",
+      "avatar": "https://i.pravatar.cc/150?u=jovan"
+    },
+    {
+      "id": 2,
+      "name": "Ana Petrovic",
+      "email": "ana@email.com",
+      "password": "123456",
+      "role": "user",
+      "avatar": "https://i.pravatar.cc/150?u=ana"
+    }
+  ],
+  "movies": [
+    {
+      "id": 1,
+      "title": "Inception",
+      "description": "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
+      "genre": "Sci-Fi",
+      "year": 2010,
+      "director": "Christopher Nolan",
+      "image": "https://image.tmdb.org/t/p/w500/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg",
+      "rating": 4.7,
+      "createdAt": "2025-07-10T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "The Godfather",
+      "description": "An organized crime dynasty's aging patriarch transfers control of his empire to his reluctant son.",
+      "genre": "Crime",
+      "year": 1972,
+      "director": "Francis Ford Coppola",
+      "image": "https://image.tmdb.org/t/p/w500/d4KNaTrltq6bpkFS01pYtyXa09m.jpg",
+      "rating": 4.9,
+      "createdAt": "2025-07-09T15:00:00Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "movieId": 1,
+      "userId": 2,
+      "rating": 5,
+      "comment": "Mind-blowing concept and visuals!",
+      "date": "2025-07-10T13:00:00Z"
+    },
+    {
+      "id": 2,
+      "movieId": 2,
+      "userId": 1,
+      "rating": 5,
+      "comment": "One of the greatest films ever made.",
+      "date": "2025-07-10T14:00:00Z"
+    }
+  ],
+  "blogs": [
+    {
+      "id": 1,
+      "title": "Why Nolan's Movies Are So Addictive",
+      "content": "Nolan's storytelling and use of time as a theme makes his work stand out...",
+      "authorId": 1,
+      "tags": ["Nolan", "Sci-Fi", "Directing"],
+      "image": "https://source.unsplash.com/featured/?cinema,film",
+      "createdAt": "2025-07-08T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Top 5 Crime Movies That Changed Cinema",
+      "content": "Crime films have shaped Hollywood for decades. Here are 5 that redefined the genre...",
+      "authorId": 2,
+      "tags": ["Crime", "Classics", "Movies"],
+      "image": "https://source.unsplash.com/featured/?movie,crime",
+      "createdAt": "2025-07-09T09:30:00Z"
+    }
+  ],
+  "blogComments": [
+    {
+      "id": 1,
+      "blogId": 1,
+      "userId": 2,
+      "comment": "Nolan is a genius! Great post.",
+      "date": "2025-07-10T12:30:00Z"
+    },
+    {
+      "id": 2,
+      "blogId": 2,
+      "userId": 1,
+      "comment": "You nailed it with this list!",
+      "date": "2025-07-10T12:45:00Z"
+    }
+  ]
+}
