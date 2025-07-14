@@ -14,3 +14,9 @@ export type User = {
   id: number;
   role: "user" | "admin";
 };
+
+// Login user fields
+export type LoginFormUser = {
+  email: string;
+  password: string;
+};

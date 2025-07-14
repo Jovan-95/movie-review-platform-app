@@ -1,62 +1,106 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NavLink, useNavigate } from "react-router-dom";
 import logoutIcon from "../assets/icons/logout-icon.svg";
+import Modal from "./Modal";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../Redux/slice";
 
 function Sidebar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [logoutModal, setLogoutModal] = useState<boolean>(false);
+
+  // Modal
+  function handleLogoutModal() {
+    setLogoutModal((prev) => !prev);
+  }
+
+  // Logout
+  function handleLogoutUser() {
+    dispatch(logoutUser());
+    navigate("/login");
+  }
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-logo-wrapper">
-        <div className="sidebar-logo-text">MOVIE REVIEW APP</div>
-      </div>
-      <div className="sidebar-nav-wrapper">
-        {/* <div className="sidebar-item">
+    <>
+      <div className="sidebar">
+        <div className="sidebar-logo-wrapper">
+          <div className="sidebar-logo-text">MOVIE REVIEW APP</div>
+        </div>
+        <div className="sidebar-nav-wrapper">
+          {/* <div className="sidebar-item">
           <span>GLAVNA</span>
         </div> */}
-        <NavLink to={"/"}>
-          <div className="sidebar-item">
-            <span>HOME</span>
-          </div>
-        </NavLink>
-        <NavLink to={"/movies"}>
-          <div className="sidebar-item">
-            <span>MOVIES</span>
-          </div>
-        </NavLink>
-        <NavLink to={"/blog"}>
-          <div className="sidebar-item">
-            <span>BLOG</span>
-          </div>
-        </NavLink>
-        <NavLink to={"/profile"}>
-          <div className="sidebar-item">
-            <span>PROFILE</span>
-          </div>
-        </NavLink>
-        {/* <NavLink to={"/notifications"}>
+          <NavLink to={"/"}>
+            <div className="sidebar-item">
+              <span>HOME</span>
+            </div>
+          </NavLink>
+          <NavLink to={"/movies"}>
+            <div className="sidebar-item">
+              <span>MOVIES</span>
+            </div>
+          </NavLink>
+          <NavLink to={"/blog"}>
+            <div className="sidebar-item">
+              <span>BLOG</span>
+            </div>
+          </NavLink>
+          <NavLink to={"/profile"}>
+            <div className="sidebar-item">
+              <span>PROFILE</span>
+            </div>
+          </NavLink>
+          {/* <NavLink to={"/notifications"}>
           <div className="sidebar-item">
             <span>NOTIFICATIONS</span>
           </div>
         </NavLink> */}
-        <NavLink to={"/admin"}>
-          <div className="sidebar-item">
-            <span>ADMIN PANEL</span>
-          </div>
-        </NavLink>
-      </div>
-      <div className="sidebar-bottom-wrapper">
-        <div className="profile-info-wrapper">
-          <div className="sidebar-item">Jovan Vuksanovic</div>
-          <div className="sidebar-item">Role</div>
+          <NavLink to={"/admin"}>
+            <div className="sidebar-item">
+              <span>ADMIN PANEL</span>
+            </div>
+          </NavLink>
         </div>
-        <div className="logout">
+        <div className="sidebar-bottom-wrapper">
+          <div className="profile-info-wrapper">
+            <div className="sidebar-item">Jovan Vuksanovic</div>
+            <div className="sidebar-item">Role</div>
+          </div>
+          <div className="logout">
+            <div>
+              <img
+                onClick={handleLogoutModal}
+                src={logoutIcon}
+                alt="logout icon"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={logoutModal ? "d-block" : "d-none"}>
+        <Modal>
           <div>
-            <img src={logoutIcon} alt="logout icon" />
+            <p>Are you sure you want to logout?</p>
+            <div>
+              <button
+                onClick={handleLogoutUser}
+                className="btn btn--primary mr-16"
+              >
+                <span>Yes</span>
+              </button>
+              <button
+                onClick={() => setLogoutModal(false)}
+                className="btn btn-primary "
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-        </div>
+        </Modal>
       </div>
-    </div>
+    </>
   );
 }
 

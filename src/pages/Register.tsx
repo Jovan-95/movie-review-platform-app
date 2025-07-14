@@ -27,6 +27,11 @@ function Register() {
     },
   });
 
+  const validateEmail = (email: string): boolean => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+    return regex.test(email);
+  };
+
   function sendUserObj(e: React.FormEvent) {
     e.preventDefault();
 
@@ -38,11 +43,6 @@ function Register() {
       userObj.confirmPassword === ""
     )
       return alert("Fill all fields!");
-
-    const validateEmail = (email: string): boolean => {
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
-      return regex.test(email);
-    };
 
     if (userObj.password.length < 6) {
       return alert("Password is too short!");
