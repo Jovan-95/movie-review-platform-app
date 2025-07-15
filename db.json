@@ -16,7 +16,7 @@
       "genre": "Sci-Fi",
       "year": 2010,
       "director": "Christopher Nolan",
-      "image": "https://image.tmdb.org/t/p/w500/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg",
+      "image": "/assets/images/inception-img.jpg",
       "rating": 4.7,
       "createdAt": "2025-07-10T12:00:00Z"
     },
@@ -27,7 +27,7 @@
       "genre": "Crime",
       "year": 1972,
       "director": "Francis Ford Coppola",
-      "image": "https://image.tmdb.org/t/p/w500/d4KNaTrltq6bpkFS01pYtyXa09m.jpg",
+      "image": "/assets/images/godfather-img.jpg",
       "rating": 4.9,
       "createdAt": "2025-07-09T15:00:00Z"
     }
@@ -56,11 +56,7 @@
       "title": "Why Nolan's Movies Are So Addictive",
       "content": "Nolan's storytelling and use of time as a theme makes his work stand out...",
       "authorId": 1,
-      "tags": [
-        "Nolan",
-        "Sci-Fi",
-        "Directing"
-      ],
+      "tags": ["Nolan", "Sci-Fi", "Directing"],
       "image": "https://source.unsplash.com/featured/?cinema,film",
       "createdAt": "2025-07-08T10:00:00Z"
     },
@@ -69,11 +65,7 @@
       "title": "Top 5 Crime Movies That Changed Cinema",
       "content": "Crime films have shaped Hollywood for decades. Here are 5 that redefined the genre...",
       "authorId": 2,
-      "tags": [
-        "Crime",
-        "Classics",
-        "Movies"
-      ],
+      "tags": ["Crime", "Classics", "Movies"],
       "image": "https://source.unsplash.com/featured/?movie,crime",
       "createdAt": "2025-07-09T09:30:00Z"
     }

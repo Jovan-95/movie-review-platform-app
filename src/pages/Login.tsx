@@ -90,6 +90,10 @@ function Login() {
           Don't have an account? Register{" "}
           <span onClick={() => navigate("/register")}>here!</span>{" "}
         </p>
+        <p className="login-text">
+          You can <span onClick={() => navigate("/")}>browse</span> without
+          account, but you cant see all pages!
+        </p>
       </div>
     </div>
   );

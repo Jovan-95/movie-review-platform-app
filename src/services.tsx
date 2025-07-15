@@ -39,3 +39,45 @@ export async function getUsers() {
     console.log(err);
   }
 }
+
+//// Movies
+// Get HTTP method
+export async function getMovies() {
+  try {
+    const res = await fetch("http://localhost:3001/movies");
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+//// Reviews
+// Get HTTP method
+export async function getReviews() {
+  try {
+    const res = await fetch("http://localhost:3001/reviews");
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+//// Blogs
+// Get HTTP method
+export async function getBlogs() {
+  try {
+    const res = await fetch("http://localhost:3001/blogs");
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}

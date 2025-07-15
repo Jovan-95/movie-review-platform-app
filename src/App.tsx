@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Layout from "./components/Layout";
+import PrivateRoute from "./components/PrivateRoute";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
 const Blog = lazy(() => import("./pages/Blog"));
+const Review = lazy(() => import("./pages/Review"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Register = lazy(() => import("./pages/Register"));
@@ -20,10 +22,46 @@ function App() {
 
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route
+              path="/movies"
+              element={
+                <PrivateRoute>
+                  <Movies />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/blog"
+              element={
+                <PrivateRoute>
+                  <Blog />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/review"
+              element={
+                <PrivateRoute>
+                  <Review />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <Admin />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </Suspense>

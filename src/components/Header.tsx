@@ -4,13 +4,21 @@ import bellIcon from "../assets/icons/bell-icon.svg";
 import profileIcon from "../assets/icons/profile-icon.svg";
 import Modal from "./Modal";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../Redux/store";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [notificationsModal, setNotificationsModal] = useState(false);
+  const navigate = useNavigate();
 
   function showNotificationsModal() {
     setNotificationsModal((prev) => !prev);
   }
+
+  // Get logged user from Redux
+  const user = useSelector((state: RootState) => state.auth.loggedInUser);
+  // console.log("Header user", user);
 
   return (
     <div className="header-wrapper">
@@ -28,6 +36,19 @@ function Header() {
           <div className="time">09:22</div>
         </div>
         <div className="profile-wrapper">
+          {user ? (
+            <div className="profile-name">{user.username}</div>
+          ) : (
+            <div>
+              <button
+                onClick={() => navigate("/login")}
+                className="btn btn--primary"
+              >
+                <span>Login</span>
+              </button>
+            </div>
+          )}
+
           <div>
             <img onClick={showNotificationsModal} src={bellIcon} alt="" />
           </div>

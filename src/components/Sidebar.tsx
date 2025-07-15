@@ -3,13 +3,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 import logoutIcon from "../assets/icons/logout-icon.svg";
 import Modal from "./Modal";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../Redux/slice";
+import type { RootState } from "../Redux/store";
 
 function Sidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [logoutModal, setLogoutModal] = useState<boolean>(false);
+
+  // Get logged user from Redux
+  const user = useSelector((state: RootState) => state.auth.loggedInUser);
 
   // Modal
   function handleLogoutModal() {
@@ -37,46 +41,76 @@ function Sidebar() {
               <span>HOME</span>
             </div>
           </NavLink>
-          <NavLink to={"/movies"}>
+          {user ? (
+            <>
+              <NavLink to={"/movies"}>
+                <div className="sidebar-item">
+                  <span>MOVIES</span>
+                </div>
+              </NavLink>
+              <NavLink to={"/blog"}>
+                <div className="sidebar-item">
+                  <span>BLOG</span>
+                </div>
+              </NavLink>
+              <NavLink to={"/review"}>
+                <div className="sidebar-item">
+                  <span>REVIEWS</span>
+                </div>
+              </NavLink>
+              <NavLink to={"/profile"}>
+                <div className="sidebar-item">
+                  <span>PROFILE</span>
+                </div>
+              </NavLink>
+              <NavLink to={"/admin"}>
+                <div className="sidebar-item">
+                  <span>ADMIN PANEL</span>
+                </div>
+              </NavLink>
+            </>
+          ) : (
             <div className="sidebar-item">
-              <span>MOVIES</span>
+              Please{" "}
+              <span
+                style={{ color: "blue" }}
+                onClick={() => navigate("/login")}
+              >
+                login
+              </span>{" "}
+              to see all pages
             </div>
-          </NavLink>
-          <NavLink to={"/blog"}>
-            <div className="sidebar-item">
-              <span>BLOG</span>
-            </div>
-          </NavLink>
-          <NavLink to={"/profile"}>
-            <div className="sidebar-item">
-              <span>PROFILE</span>
-            </div>
-          </NavLink>
-          {/* <NavLink to={"/notifications"}>
-          <div className="sidebar-item">
-            <span>NOTIFICATIONS</span>
-          </div>
-        </NavLink> */}
-          <NavLink to={"/admin"}>
-            <div className="sidebar-item">
-              <span>ADMIN PANEL</span>
-            </div>
-          </NavLink>
+          )}
         </div>
         <div className="sidebar-bottom-wrapper">
-          <div className="profile-info-wrapper">
-            <div className="sidebar-item">Jovan Vuksanovic</div>
-            <div className="sidebar-item">Role</div>
-          </div>
-          <div className="logout">
-            <div>
-              <img
-                onClick={handleLogoutModal}
-                src={logoutIcon}
-                alt="logout icon"
-              />
+          {user ? (
+            <>
+              <div className="profile-info-wrapper">
+                <div className="sidebar-item">{user.email}</div>
+                <div className="sidebar-item">{user.role}</div>
+              </div>
+              <div className="logout">
+                <div>
+                  <img
+                    onClick={handleLogoutModal}
+                    src={logoutIcon}
+                    alt="logout icon"
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="logout">
+              <div>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="btn btn--primary"
+                >
+                  <span>Login</span>
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <div className={logoutModal ? "d-block" : "d-none"}>
