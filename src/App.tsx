@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import SingleMovie from "./pages/single-pages/SingleMovie";
+import SingleBlog from "./pages/single-pages/SingleBlog";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -44,6 +45,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Blog />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/blog/:id"
+              element={
+                <PrivateRoute>
+                  <SingleBlog />
                 </PrivateRoute>
               }
             />

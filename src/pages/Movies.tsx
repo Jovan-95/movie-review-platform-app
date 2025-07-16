@@ -39,8 +39,6 @@ function Movies() {
               </div>
             </NavLink>
           ))}
-
-          {/* <!-- Repeat 2–3x --> */}
         </div>
       </section>
     </div>

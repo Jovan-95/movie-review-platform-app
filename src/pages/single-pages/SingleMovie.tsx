@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPopularMovies } from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import type { Movie } from "../../types";
 
 function SingleMovie() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // Getting movies
   const {
@@ -61,6 +62,12 @@ function SingleMovie() {
           <p className="single-movie__description">{singleMovie.overview}</p>
 
           <button className="single-movie__btn">Add to Favorites</button>
+          <button
+            onClick={() => navigate("/movies")}
+            className="single-movie__btn"
+          >
+            Back
+          </button>
         </div>
       </div>
     </div>
