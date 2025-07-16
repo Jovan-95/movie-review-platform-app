@@ -23,15 +23,13 @@ export type LoginFormUser = {
 
 // Movie
 export type Movie = {
-  id: string;
+  id: number;
   title: string;
-  description: string;
-  genre: string;
-  year: number;
-  director: string;
-  image: string;
-  rating: number;
-  createdAt: string;
+  overview: string;
+  release_date: string;
+  popularity: string;
+  backdrop_path: string;
+  vote_average: number;
 };
 
 // Review

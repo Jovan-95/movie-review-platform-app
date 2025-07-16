@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import type { RootState } from "../Redux/store";
-import { getBlogs, getMovies, getReviews } from "../services";
+import { getBlogs, getPopularMovies, getReviews } from "../services";
 import { useQuery } from "@tanstack/react-query";
 import type { Movie, Review } from "../types";
 
@@ -11,14 +11,14 @@ function Home() {
   // Get logged user from Redux
   const user = useSelector((state: RootState) => state.auth.loggedInUser);
 
-  // Getting movies from services with reactQuery
+  // Getting movies
   const {
     data: movies,
     isLoading: moviesIsLoading,
     error: moviesError,
   } = useQuery({
     queryKey: ["users"],
-    queryFn: getMovies,
+    queryFn: getPopularMovies,
   });
 
   // Getting reviews from services with reactQuery
@@ -45,7 +45,7 @@ function Home() {
   if (moviesIsLoading || reviewsIsLoading || blogsIsLoading)
     return <p>Loading...</p>;
   if (moviesError || reviewsError || blogsError)
-    return <p>{moviesError?.message}</p>;
+    return <p>{reviewsError?.message}</p>;
   return (
     <div className="home">
       {/* <!-- Hero Section --> */}
@@ -70,18 +70,27 @@ function Home() {
         </div>
       </section>
 
-      {/* <!-- Latest Movies --> */}
+      {/* <!-- Popular Movies --> */}
       <section className="section movies-preview">
-        <h2 className="section__title">Latest Movies</h2>
+        <h2 className="section__title">Popular Movies</h2>
         <div className="cards">
-          {movies.map((movie: Movie) => (
-            <div key={movie.id} className="card">
-              <img src={movie.image} alt="movie" className="card__img" />
-              <h3 className="card__title">{movie.title}</h3>
-              <p className="card__meta">
-                {movie.year} · {movie.rating} ⭐
-              </p>
-            </div>
+          {/* With slice we only show 5 movies instead of all of them */}
+          {movies.results.slice(0, 5).map((movie: Movie) => (
+            <NavLink key={movie.id} to={`movies/${movie.id}`}>
+              {" "}
+              <div className="card">
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                  alt="movie"
+                  className="card__img"
+                />
+                <h3 className="card__title">{movie.title}</h3>
+                <p>{movie.popularity}</p>
+                <p className="card__meta">
+                  {movie.release_date} · {movie.vote_average} ⭐
+                </p>
+              </div>
+            </NavLink>
           ))}
 
           {/* <!-- Repeat 2–3x --> */}
@@ -96,7 +105,7 @@ function Home() {
         <h2 className="section__title">Top Reviews</h2>
         <div className="reviews">
           {reviews.map((review: Review) => (
-            <div className="review">
+            <div key={review.id} className="review">
               <p className="review__rating">⭐ {review.rating}</p>
               <p className="review__text">{review.comment}</p>
               {/* TODO Jovan, find author of the review with ID */}
@@ -116,7 +125,7 @@ function Home() {
         <h2 className="section__title">Latest Blog Posts</h2>
         <div className="blogs">
           {blogs.map((blog) => (
-            <div className="blog">
+            <div key={blog.id} className="blog">
               <h3 className="blog__title">{blog.title}</h3>
               <p className="blog__excerpt">{blog.content}</p>
               {/* TODO Jovan, find author of the blog with ID */}

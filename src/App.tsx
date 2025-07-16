@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
+import SingleMovie from "./pages/single-pages/SingleMovie";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -27,6 +28,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Movies />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/movies/:id"
+              element={
+                <PrivateRoute>
+                  <SingleMovie />
                 </PrivateRoute>
               }
             />

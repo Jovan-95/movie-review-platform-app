@@ -5,6 +5,7 @@
 @import "./scss/components/buttons.scss";
 @import "./scss/pages/auth-pages.scss";
 @import "./scss/pages/home.scss";
+@import "./scss/pages/single-movie.scss";
 
 *,
 *::before,
@@ -63,6 +64,7 @@ input::placeholder {
 
 a {
   text-decoration: none;
+  color: $text-primary;
 }
 
 // Helpers

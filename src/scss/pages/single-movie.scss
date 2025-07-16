@@ -1,0 +1,89 @@
+.single-movie {
+  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #141e30;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  // margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+
+  &__content-movie {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  &__poster-wrapper {
+    height: 100%;
+    flex-shrink: 0;
+    width: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  }
+
+  &__poster {
+    height: 100%;
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__meta {
+    font-size: 0.9rem;
+    color: #bbb;
+    display: flex;
+    gap: 1.5rem;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+    }
+  }
+
+  &__rating {
+    font-size: 1.2rem;
+    color: #f0c040;
+    font-weight: 600;
+  }
+
+  &__description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #ddd;
+  }
+
+  &__btn {
+    background-color: #2a5298;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    width: fit-content;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #1b3b6f;
+    }
+  }
+}
