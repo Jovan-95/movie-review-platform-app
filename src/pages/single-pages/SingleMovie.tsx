@@ -28,49 +28,51 @@ function SingleMovie() {
   //   console.log("single movie :", singleMovie);
 
   return (
-    <div className="single-movie">
-      <div
-        className="single-movie__backdrop"
-        // background image inline stil možeš dodati u React-u koristeći singleMovie.backdrop_path
-      ></div>
+    <>
+      <div className="single-movie">
+        <div
+          className="single-movie__backdrop"
+          // background image inline stil možeš dodati u React-u koristeći singleMovie.backdrop_path
+        ></div>
 
-      <div className="single-movie__content-movie">
-        <div className="single-movie__poster-wrapper">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}`}
-            alt="movie poster"
-            className="single-movie__poster"
-          />
-        </div>
+        <div className="single-movie__content-movie">
+          <div className="single-movie__poster-wrapper">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}`}
+              alt="movie poster"
+              className="single-movie__poster"
+            />
+          </div>
 
-        <div className="single-movie__info">
-          <h1 className="single-movie__title">{singleMovie.title}</h1>
+          <div className="single-movie__info">
+            <h1 className="single-movie__title">{singleMovie.title}</h1>
 
-          <p className="single-movie__meta">
-            <span className="single-movie__year">
-              Release Date: {singleMovie.release_date}
-            </span>
-            <span className="single-movie__genre">
-              Popularity: {singleMovie.popularity}
-            </span>
-          </p>
+            <p className="single-movie__meta">
+              <span className="single-movie__year">
+                Release Date: {singleMovie.release_date}
+              </span>
+              <span className="single-movie__genre">
+                Popularity: {singleMovie.popularity}
+              </span>
+            </p>
 
-          <p className="single-movie__rating">
-            ⭐ {singleMovie.vote_average} / 10
-          </p>
+            <p className="single-movie__rating">
+              ⭐ {singleMovie.vote_average} / 10
+            </p>
 
-          <p className="single-movie__description">{singleMovie.overview}</p>
+            <p className="single-movie__description">{singleMovie.overview}</p>
 
-          <button className="single-movie__btn">Add to Favorites</button>
-          <button
-            onClick={() => navigate("/movies")}
-            className="single-movie__btn"
-          >
-            Back
-          </button>
+            <button className="single-movie__btn">Add to Favorites</button>
+            <button
+              onClick={() => navigate("/movies")}
+              className="single-movie__btn"
+            >
+              Back
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -75,7 +75,7 @@ function Home() {
         <h2 className="section__title">Popular Movies</h2>
         <div className="cards">
           {/* With slice we only show 5 movies instead of all of them */}
-          {movies.results.slice(0, 5).map((movie: Movie) => (
+          {movies.results?.slice(0, 5).map((movie: Movie) => (
             <NavLink key={movie.id} to={`movies/${movie.id}`}>
               {" "}
               <div className="card">

@@ -1,9 +1,16 @@
 {
   "users": [
     {
-      "id": 1752488993984,
+      "id": "1752488993984",
       "username": "Jovan",
       "email": "vuksanovicjovan@hotmail.com",
+      "password": "111111",
+      "role": "user"
+    },
+    {
+      "id": 1752742772493,
+      "username": "test",
+      "email": "test@gmail.com",
       "password": "111111",
       "role": "user"
     }
@@ -56,7 +63,11 @@
       "title": "Why Nolan's Movies Are So Addictive",
       "content": "Nolan's storytelling and use of time as a theme makes his work stand out...",
       "authorId": 1,
-      "tags": ["Nolan", "Sci-Fi", "Directing"],
+      "tags": [
+        "Nolan",
+        "Sci-Fi",
+        "Directing"
+      ],
       "image": "https://source.unsplash.com/featured/?cinema,film",
       "createdAt": "2025-07-08T10:00:00Z"
     },
@@ -65,25 +76,57 @@
       "title": "Top 5 Crime Movies That Changed Cinema",
       "content": "Crime films have shaped Hollywood for decades. Here are 5 that redefined the genre...",
       "authorId": 2,
-      "tags": ["Crime", "Classics", "Movies"],
+      "tags": [
+        "Crime",
+        "Classics",
+        "Movies"
+      ],
       "image": "https://source.unsplash.com/featured/?movie,crime",
       "createdAt": "2025-07-09T09:30:00Z"
     }
   ],
   "blogComments": [
     {
-      "id": "1",
-      "blogId": 1,
-      "userId": 2,
-      "comment": "Nolan is a genius! Great post.",
-      "date": "2025-07-10T12:30:00Z"
+      "id": 1752741664716,
+      "blogId": "2",
+      "userId": "1752488993984",
+      "comment": "test",
+      "date": 1752741664716
     },
     {
-      "id": "2",
-      "blogId": 2,
-      "userId": 1,
-      "comment": "You nailed it with this list!",
-      "date": "2025-07-10T12:45:00Z"
+      "id": 1752742341477,
+      "blogId": "1",
+      "userId": "1752488993984",
+      "comment": "Nolaaaan",
+      "date": 1752742341477
+    },
+    {
+      "id": 1752742363948,
+      "blogId": "1",
+      "userId": "1752488993984",
+      "comment": "Best director",
+      "date": 1752742363948
+    },
+    {
+      "id": 1752742376564,
+      "blogId": "2",
+      "userId": "1752488993984",
+      "comment": "best movies",
+      "date": 1752742376564
+    },
+    {
+      "id": 1752743157085,
+      "blogId": "1",
+      "userId": 1752742772493,
+      "comment": "Bad director",
+      "date": 1752743157085
+    },
+    {
+      "id": 1752744073582,
+      "blogId": "1",
+      "userId": "1752488993984",
+      "comment": "aaaa",
+      "date": 1752744073582
     }
   ]
 }
