@@ -179,7 +179,7 @@ function SingleBlog() {
 
                 return (
                   <div key={comment.id} className="comment-card">
-                    <div className="comment-author">{author.username}</div>
+                    <div className="comment-author">{author?.username}</div>
                     <div className="comment-text">{comment.comment}</div>
                     <div className="comment-date">
                       {new Date(comment.date).toLocaleString()}

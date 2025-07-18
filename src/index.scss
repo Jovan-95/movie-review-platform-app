@@ -3,8 +3,8 @@
 @import "./scss/app-wrapper.scss";
 @import "./scss/components/modal.scss";
 @import "./scss/components/comments.scss";
-
 @import "./scss/components/buttons.scss";
+@import "./scss/components/review-form.scss";
 @import "./scss/pages/auth-pages.scss";
 @import "./scss/pages/home.scss";
 @import "./scss/pages/single-movie.scss";
@@ -80,4 +80,8 @@ a {
 
 .mr-16 {
   margin-right: 16px;
+}
+
+.h-100 {
+  height: 100%;
 }

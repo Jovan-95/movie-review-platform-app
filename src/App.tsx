@@ -4,6 +4,8 @@ import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import SingleMovie from "./pages/single-pages/SingleMovie";
 import SingleBlog from "./pages/single-pages/SingleBlog";
+import SingleReview from "./pages/single-pages/SingleReview";
+import CreateReview from "./pages/single-pages/CreateReview";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -61,6 +63,22 @@ function App() {
               element={
                 <PrivateRoute>
                   <Review />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/review/:id"
+              element={
+                <PrivateRoute>
+                  <SingleReview />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/movies/create-review/:id"
+              element={
+                <PrivateRoute>
+                  <CreateReview />
                 </PrivateRoute>
               }
             />

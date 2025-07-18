@@ -67,7 +67,7 @@ export async function getReviews() {
     const res = await fetch("http://localhost:3001/reviews");
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
     return data;
   } catch (err) {
     console.log(err);

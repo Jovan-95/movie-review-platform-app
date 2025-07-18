@@ -20,7 +20,7 @@ function Blog() {
   if (blogsError) return <p>{blogsError?.message}</p>;
   return (
     <div className="home">
-      {/* <!-- Popular Movies --> */}
+      {/* <!-- Blogs --> */}
       <section className="section movies-preview">
         <h2 className="section__title">Blogs</h2>
         <div className="cards">

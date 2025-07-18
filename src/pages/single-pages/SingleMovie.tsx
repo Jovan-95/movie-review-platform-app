@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { getPopularMovies } from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import type { Movie } from "../../types";
@@ -62,7 +62,9 @@ function SingleMovie() {
 
             <p className="single-movie__description">{singleMovie.overview}</p>
 
-            <button className="single-movie__btn">Add to Favorites</button>
+            <NavLink to={`/movies/create-review/${singleMovie.id}`}>
+              <button className="single-movie__btn">Add Review</button>
+            </NavLink>
             <button
               onClick={() => navigate("/movies")}
               className="single-movie__btn"

@@ -23,7 +23,7 @@ function Movies() {
       <section className="section movies-preview">
         <h2 className="section__title">Popular Movies</h2>
         <div className="cards">
-          {movies.results.map((movie: Movie) => (
+          {movies.results?.map((movie: Movie) => (
             <NavLink key={movie.id} to={`/movies/${movie.id}`}>
               <div className="card">
                 <img

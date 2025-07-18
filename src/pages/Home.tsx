@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import type { RootState } from "../Redux/store";
 import { getBlogs, getPopularMovies, getReviews } from "../services";
 import { useQuery } from "@tanstack/react-query";
-import type { Movie, Review } from "../types";
+import type { Blog, Movie, Review } from "../types";
 
 function Home() {
   const navigate = useNavigate();
@@ -115,7 +115,7 @@ function Home() {
 
           {/* <!-- Repeat --> */}
         </div>
-        <div onClick={() => navigate("/reviews")} className="section__link">
+        <div onClick={() => navigate("/review")} className="section__link">
           Go to Reviews →
         </div>
       </section>
@@ -124,13 +124,15 @@ function Home() {
       <section className="section blogs-preview">
         <h2 className="section__title">Latest Blog Posts</h2>
         <div className="blogs">
-          {blogs.map((blog) => (
-            <div key={blog.id} className="blog">
-              <h3 className="blog__title">{blog.title}</h3>
-              <p className="blog__excerpt">{blog.content}</p>
-              {/* TODO Jovan, find author of the blog with ID */}
-              <p className="blog__author">By {blog.authorId}</p>
-            </div>
+          {blogs.map((blog: Blog) => (
+            <NavLink key={blog.id} to={`/blog/${blog.id}`}>
+              <div className="blog">
+                <h3 className="blog__title">{blog.title}</h3>
+                <p className="blog__excerpt">{blog.content}</p>
+                {/* TODO Jovan, find author of the blog with ID */}
+                <p className="blog__author">By {blog.authorId}</p>
+              </div>
+            </NavLink>
           ))}
 
           {/* <!-- Repeat --> */}
