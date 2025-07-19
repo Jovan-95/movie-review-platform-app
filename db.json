@@ -15,46 +15,46 @@
       "role": "user"
     }
   ],
-  "movies": [
-    {
-      "id": "1",
-      "title": "Inception",
-      "description": "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea.",
-      "genre": "Sci-Fi",
-      "year": 2010,
-      "director": "Christopher Nolan",
-      "image": "/assets/images/inception-img.jpg",
-      "rating": 4.7,
-      "createdAt": "2025-07-10T12:00:00Z"
-    },
-    {
-      "id": "2",
-      "title": "The Godfather",
-      "description": "An organized crime dynasty's aging patriarch transfers control of his empire to his reluctant son.",
-      "genre": "Crime",
-      "year": 1972,
-      "director": "Francis Ford Coppola",
-      "image": "/assets/images/godfather-img.jpg",
-      "rating": 4.9,
-      "createdAt": "2025-07-09T15:00:00Z"
-    }
-  ],
   "reviews": [
     {
-      "id": "1",
-      "movieId": 1,
-      "userId": 2,
-      "rating": 5,
-      "comment": "Mind-blowing concept and visuals!",
-      "date": "2025-07-10T13:00:00Z"
+      "id": 1752917999936,
+      "movieId": 1087192,
+      "userId": "1752488993984",
+      "rating": 8,
+      "content": "Good movie!",
+      "date": "7/19/2025, 11:39:59 AM"
     },
     {
-      "id": "2",
-      "movieId": 2,
-      "userId": 1,
+      "id": 1752920378074,
+      "movieId": 1011477,
+      "userId": "1752488993984",
+      "rating": 7,
+      "content": "Karate kid is a shit movie",
+      "date": "7/19/2025, 12:19:38 PM"
+    },
+    {
+      "id": 1752921188555,
+      "movieId": 1061474,
+      "userId": "1752488993984",
       "rating": 5,
-      "comment": "One of the greatest films ever made.",
-      "date": "2025-07-10T14:00:00Z"
+      "content": "Supermen je slepac",
+      "date": "7/19/2025, 12:33:08 PM"
+    },
+    {
+      "id": 1752921216963,
+      "movieId": 1071585,
+      "userId": "1752488993984",
+      "rating": 1,
+      "content": "?????",
+      "date": "7/19/2025, 12:33:36 PM"
+    },
+    {
+      "id": 1752921259275,
+      "movieId": 911430,
+      "userId": "1752488993984",
+      "rating": 4,
+      "content": "Bad movie",
+      "date": "7/19/2025, 12:34:19 PM"
     }
   ],
   "blogs": [
@@ -134,6 +134,13 @@
       "userId": "1752488993984",
       "comment": "tttttt",
       "date": 1752827188039
+    },
+    {
+      "id": 1752921298123,
+      "blogId": "1",
+      "userId": "1752742772493",
+      "comment": "rerwrew",
+      "date": 1752921298123
     }
   ]
 }
