@@ -1,39 +1,67 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { getPopularMovies } from "../../services";
+import { getPopularMovies, getReviews, getUsers } from "../../services";
 import { useQuery } from "@tanstack/react-query";
-import type { Movie } from "../../types";
+import type { Movie, Review, User } from "../../types";
 
 function SingleMovie() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Getting movies
+  // Get movies
   const {
     data: movies,
     isLoading: moviesIsLoading,
     error: moviesError,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["movies"],
     queryFn: getPopularMovies,
   });
 
-  // Error handling
-  if (moviesIsLoading) return <p>Loading...</p>;
-  if (moviesError) return <p>{moviesError?.message}</p>;
+  // Get review
+  const {
+    data: reviews,
+    isLoading: reviewsIsLoading,
+    error: reviewsError,
+  } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: getReviews,
+  });
 
+  // Get users
+  const {
+    data: users,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+
+  // Error handling
+  if (moviesIsLoading || reviewsIsLoading || usersIsLoading)
+    return <p>Loading...</p>;
+  if (moviesError || reviewsError || usersError)
+    return <p>{moviesError?.message}</p>;
+
+  // Prevent Error
+  if (!Array.isArray(users)) return null;
+
+  // Find single movie
   const singleMovie = movies.results.find(
     (movie: Movie) => Number(movie.id) === Number(id)
   );
   //   console.log("single movie :", singleMovie);
 
+  // Find review for single movie
+  const filteredReviews = reviews.filter(
+    (review: Review) => review.movieId === singleMovie.id
+  );
+
   return (
     <>
       <div className="single-movie">
-        <div
-          className="single-movie__backdrop"
-          // background image inline stil možeš dodati u React-u koristeći singleMovie.backdrop_path
-        ></div>
+        <div className="single-movie__backdrop"></div>
 
         <div className="single-movie__content-movie">
           <div className="single-movie__poster-wrapper">
@@ -71,6 +99,30 @@ function SingleMovie() {
             >
               Back
             </button>
+          </div>
+        </div>
+      </div>
+      {/* --- Review SECTION --- */}
+      <div className="review-wrapper">
+        <div className="reviews-section">
+          <div className="reviews-list">
+            <h2 className="reviews-title">Reviews</h2>
+            {/* List all reviews for this Movie */}
+            {filteredReviews.map((review: Review) => {
+              // Find author by id
+              const author = users.find(
+                (user: User) => user.id === review.userId
+              );
+
+              return (
+                <div key={review.id} className="review-card">
+                  <div className="review-author">{author.username}</div>
+                  <div className="review-rating">{review.rating}</div>{" "}
+                  <div className="review-text">{review.content}</div>
+                  <div className="review-date">{review.date}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
