@@ -104,12 +104,12 @@ function Home() {
       <section className="section reviews-preview">
         <h2 className="section__title">Top Reviews</h2>
         <div className="reviews">
-          {reviews.map((review: Review) => (
+          {reviews.slice(0, 5).map((review: Review) => (
             <div key={review.id} className="review">
               <p className="review__rating">⭐ {review.rating}</p>
-              <p className="review__text">{review.comment}</p>
+              <p className="review__text">{review.content}</p>
               {/* TODO Jovan, find author of the review with ID */}
-              <p className="review__author">– Ana Petrovic</p>
+              <p className="review__author">– {review.date}</p>
             </div>
           ))}
 

@@ -2,10 +2,10 @@
   "users": [
     {
       "id": "1752488993984",
-      "username": "Jovan",
+      "username": "Jovan-95",
       "email": "vuksanovicjovan@hotmail.com",
       "password": "111111",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": "1752742772493",
@@ -57,7 +57,7 @@
       "date": "7/19/2025, 12:34:19 PM"
     },
     {
-      "id": 1753094396462,
+      "id": "1753094396462",
       "movieId": 1087192,
       "userId": "1752488993984",
       "rating": 7,
