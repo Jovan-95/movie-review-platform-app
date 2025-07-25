@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Redux/store";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs, getPopularMovies, getReviews, getUsers } from "../services";
 
 function Header() {
   const [notificationsModal, setNotificationsModal] = useState(false);
@@ -20,6 +22,69 @@ function Header() {
   const user = useSelector((state: RootState) => state.auth.loggedInUser);
   // console.log("Header user", user);
 
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const formattedTime = date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  // Getting movies
+  const {
+    data: movies,
+    isLoading: moviesIsLoading,
+    error: moviesError,
+  } = useQuery({
+    queryKey: ["movies"],
+    queryFn: getPopularMovies,
+  });
+
+  // Getting reviews from services with reactQuery
+  const {
+    data: reviews,
+    isLoading: reviewsIsLoading,
+    error: reviewsError,
+  } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: getReviews,
+  });
+
+  // Getting blogs from services with reactQuery
+  const {
+    data: blogs,
+    isLoading: blogsIsLoading,
+    error: blogsError,
+  } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getBlogs,
+  });
+
+  // Get users
+  const {
+    data: users,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+
+  // Error handling
+  if (moviesIsLoading || reviewsIsLoading || blogsIsLoading || usersIsLoading)
+    return <p>Loading...</p>;
+  if (moviesError || reviewsError || blogsError || usersError)
+    return <p>{reviewsError?.message}</p>;
+
+  // console.log(movies.results);
+  // console.log(blogs);
+  // console.log(users);
+  // console.log(reviews);
+
   return (
     <div className="header-wrapper">
       <div className="header">
@@ -32,8 +97,8 @@ function Header() {
           />
         </div>
         <div className="time-wrapper">
-          <div className="time">Dec 16, 2023</div>
-          <div className="time">09:22</div>
+          <div className="time">{formattedDate}</div>
+          <div className="time">{formattedTime}</div>
         </div>
         <div className="profile-wrapper">
           {user ? (
@@ -53,26 +118,30 @@ function Header() {
             <img onClick={showNotificationsModal} src={bellIcon} alt="" />
           </div>
           <div>
-            <img src={profileIcon} alt="" />
+            <img
+              onClick={() => navigate("/profile")}
+              src={profileIcon}
+              alt=""
+            />
           </div>
         </div>
       </div>
       <div className="boxes-wrapper">
         <div className="box mr-16">
-          <div>Text</div>
-          <div>100</div>
+          <div>Users</div>
+          <div>{users.length}</div>
         </div>
         <div className="box mr-16">
-          <div>Text</div>
-          <div>100</div>
+          <div>Movies</div>
+          <div>{movies.results.length}</div>
         </div>
         <div className="box mr-16">
-          <div>Text</div>
-          <div>100</div>
+          <div>Reviews</div>
+          <div>{reviews.length}</div>
         </div>
         <div className="box">
-          <div>Text</div>
-          <div>100</div>
+          <div>Blogs</div>
+          <div>{blogs.length}</div>
         </div>
       </div>
       {/* Modal */}
