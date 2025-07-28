@@ -5,6 +5,9 @@
 // http://localhost:3001/blogs
 // http://localhost:3001/blogComments
 
+// Local url
+const localhostUrl = "http://localhost:3001";
+
 // Real movies API
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -15,7 +18,7 @@ import type { Comment, Review, User } from "./types";
 // Post HTTP method
 export async function registerUser(user: User) {
   try {
-    const res = await fetch("http://localhost:3001/users", {
+    const res = await fetch(`${localhostUrl}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +37,7 @@ export async function registerUser(user: User) {
 // Get HTTP method
 export async function getUsers() {
   try {
-    const res = await fetch("http://localhost:3001/users");
+    const res = await fetch(`${localhostUrl}/users`);
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
     // console.log(data);
@@ -47,7 +50,7 @@ export async function getUsers() {
 //// Patch HTTP method Edit user
 export async function editUser(userId: string, editedObj: Partial<User>) {
   try {
-    const res = await fetch(`http://localhost:3001/users/${userId}`, {
+    const res = await fetch(`${localhostUrl}/users/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -66,6 +69,26 @@ export async function editUser(userId: string, editedObj: Partial<User>) {
   }
 }
 
+//// Patch HTTP method change user status (ban, unban, reject)
+export async function changeUserStatus(
+  userId: string | number,
+  status: "active" | "rejected" | "banned"
+) {
+  const response = await fetch(`${localhostUrl}/users/${userId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update user status");
+  }
+
+  return response.json();
+}
+
 //// Movies
 // Get HTTP method. I am using real API for movies, not db.json
 export async function getPopularMovies() {
@@ -75,7 +98,7 @@ export async function getPopularMovies() {
     );
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (err) {
     console.log(err);
@@ -86,7 +109,7 @@ export async function getPopularMovies() {
 // Get HTTP method
 export async function getReviews() {
   try {
-    const res = await fetch("http://localhost:3001/reviews");
+    const res = await fetch(`${localhostUrl}/reviews`);
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
     // console.log(data);
@@ -99,7 +122,7 @@ export async function getReviews() {
 // Post HTTP method
 export async function createReview(review: Review) {
   try {
-    const res = await fetch("http://localhost:3001/reviews", {
+    const res = await fetch(`${localhostUrl}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +142,7 @@ export async function createReview(review: Review) {
 // Get HTTP method
 export async function getBlogs() {
   try {
-    const res = await fetch("http://localhost:3001/blogs");
+    const res = await fetch(`${localhostUrl}/blogs`);
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
     // console.log(data);
@@ -133,7 +156,7 @@ export async function getBlogs() {
 // Post HTTP method
 export async function postComment(comment: Comment) {
   try {
-    const res = await fetch("http://localhost:3001/blogComments", {
+    const res = await fetch(`${localhostUrl}/blogComments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -152,7 +175,7 @@ export async function postComment(comment: Comment) {
 // Get HTTP method
 export async function getComments() {
   try {
-    const res = await fetch("http://localhost:3001/blogComments");
+    const res = await fetch(`${localhostUrl}/blogComments`);
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
     // console.log(data);

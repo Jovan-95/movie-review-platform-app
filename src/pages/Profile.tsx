@@ -61,7 +61,7 @@ function Profile() {
 
   // Find user on
   const currentUser = users.find(
-    (user: User) => Number(user.id) === Number(loggedUser.id)
+    (user: User) => String(user.id) === String(loggedUser.id)
   );
 
   // Edit modal
@@ -91,7 +91,7 @@ function Profile() {
       password,
     };
 
-    editUserFormFields({ userId: currentUser.id, editedObj });
+    editUserFormFields({ userId: String(currentUser.id), editedObj });
     alert("Changes are saved!");
     setModal(false);
   }
@@ -115,23 +115,23 @@ function Profile() {
           className="profile-avatar"
         />
         <div className="profile-info">
-          <h2 className="profile-name">{currentUser.username}</h2>
-          <p className="profile-role">{currentUser.role}</p>
+          <h2 className="profile-name">{currentUser?.username}</h2>
+          <p className="profile-role">{currentUser?.role}</p>
         </div>
       </div>
 
       <div className="profile-details">
         <div className="detail-item">
           <span className="detail-label">Email:</span>
-          <span className="detail-value">{currentUser.email}</span>
+          <span className="detail-value">{currentUser?.email}</span>
         </div>
         <div className="detail-item">
           <span className="detail-label">Username:</span>
-          <span className="detail-value">{currentUser.username}</span>
+          <span className="detail-value">{currentUser?.username}</span>
         </div>
         <div className="detail-item">
           <span className="detail-label">Joined:</span>
-          <span className="detail-value">{currentUser.role}</span>
+          <span className="detail-value">{currentUser?.role}</span>
         </div>
       </div>
 

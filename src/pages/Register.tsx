@@ -58,16 +58,18 @@ function Register() {
 
     // User for sending
     const newUser: User = {
-      id: Date.now(),
+      id: Date.now().toString(),
       username: userObj.username,
       email: userObj.email,
       password: userObj.password,
       role: "user",
+      status: "pending",
     };
 
     // Add user
     addUserMutation.mutate(newUser);
     navigate("/login");
+    alert("Your account is waiting for approval");
 
     // reset fields
     setUserObj({

@@ -63,11 +63,13 @@ function Sidebar() {
                   <span>PROFILE</span>
                 </div>
               </NavLink>
-              <NavLink to={"/admin"}>
-                <div className="sidebar-item">
-                  <span>ADMIN PANEL</span>
-                </div>
-              </NavLink>
+              {user?.role === "admin" && (
+                <NavLink to={"/admin"}>
+                  <div className="sidebar-item">
+                    <span>ADMIN PANEL</span>
+                  </div>
+                </NavLink>
+              )}
             </>
           ) : (
             <div className="sidebar-item">

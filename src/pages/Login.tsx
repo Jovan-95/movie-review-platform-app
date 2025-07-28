@@ -38,6 +38,16 @@ function Login() {
       return;
     }
 
+    if (user.status === "banned") {
+      alert("You are banned!");
+      return;
+    }
+
+    if (user.status === "pending") {
+      alert("Your registration is waiting for approval!");
+      return;
+    }
+
     // Keeping user in Redux
     if (user) {
       alert("Credentials are matching!");

@@ -11,8 +11,9 @@ export type User = {
   username: string;
   email: string;
   password: string;
-  id: number;
+  id: string;
   role: "user" | "admin";
+  status: string;
 };
 
 // Login user fields

@@ -6,6 +6,7 @@ import SingleMovie from "./pages/single-pages/SingleMovie";
 import SingleBlog from "./pages/single-pages/SingleBlog";
 import SingleReview from "./pages/single-pages/SingleReview";
 import CreateReview from "./pages/single-pages/CreateReview";
+import PublicRoute from "./components/PublicRoute";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -21,8 +22,22 @@ function App() {
     <BrowserRouter>
       <Suspense fallback={<h2>Loading...</h2>}>
         <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
 
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
@@ -93,7 +108,7 @@ function App() {
             <Route
               path="/admin"
               element={
-                <PrivateRoute>
+                <PrivateRoute requiredRole="admin">
                   <Admin />
                 </PrivateRoute>
               }

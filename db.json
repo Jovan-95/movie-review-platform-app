@@ -2,17 +2,27 @@
   "users": [
     {
       "id": "1752488993984",
-      "username": "Jovan-95",
+      "username": "Jovan",
       "email": "vuksanovicjovan@hotmail.com",
       "password": "111111",
-      "role": "admin"
+      "role": "admin",
+      "status": "active"
     },
     {
       "id": "1752742772493",
       "username": "test",
       "email": "test@gmail.com",
       "password": "111111",
-      "role": "user"
+      "role": "user",
+      "status": "banned"
+    },
+    {
+      "id": "1753696027103",
+      "username": "smesko",
+      "email": "s@gmail.com",
+      "password": "111111",
+      "role": "user",
+      "status": "active"
     }
   ],
   "reviews": [
@@ -63,6 +73,14 @@
       "rating": 7,
       "content": "Second watch makes it better",
       "date": "7/21/2025, 12:39:56 PM"
+    },
+    {
+      "id": 1753702956340,
+      "movieId": 1087192,
+      "userId": "1752488993984",
+      "rating": 2,
+      "content": "ewfewe",
+      "date": "7/28/2025, 1:42:36 PM"
     }
   ],
   "blogs": [
@@ -149,6 +167,34 @@
       "userId": "1752742772493",
       "comment": "rerwrew",
       "date": 1752921298123
+    },
+    {
+      "id": 1753702979588,
+      "blogId": "2",
+      "userId": "1752488993984",
+      "comment": "fsdfdresdaers",
+      "date": 1753702979588
+    },
+    {
+      "id": 1753703031276,
+      "blogId": "1",
+      "userId": "1752488993984",
+      "comment": "dazrzdszdt",
+      "date": 1753703031276
+    },
+    {
+      "id": 1753703060813,
+      "blogId": "2",
+      "userId": "1752488993984",
+      "comment": "top 5 crimes\n",
+      "date": 1753703060813
+    },
+    {
+      "id": 1753703068637,
+      "blogId": "1",
+      "userId": "1752488993984",
+      "comment": "Nolan",
+      "date": 1753703068637
     }
   ]
 }
