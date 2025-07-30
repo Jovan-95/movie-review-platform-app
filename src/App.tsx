@@ -7,6 +7,7 @@ import SingleBlog from "./pages/single-pages/SingleBlog";
 import SingleReview from "./pages/single-pages/SingleReview";
 import CreateReview from "./pages/single-pages/CreateReview";
 import PublicRoute from "./components/PublicRoute";
+import CreateNewBlog from "./pages/CreateNewBlog";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -62,6 +63,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Blog />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/blog/create-new-blog"
+              element={
+                <PrivateRoute>
+                  <CreateNewBlog />
                 </PrivateRoute>
               }
             />

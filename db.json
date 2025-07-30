@@ -22,7 +22,7 @@
       "email": "s@gmail.com",
       "password": "111111",
       "role": "user",
-      "status": "active"
+      "status": "rejected"
     }
   ],
   "reviews": [
@@ -75,7 +75,7 @@
       "date": "7/21/2025, 12:39:56 PM"
     },
     {
-      "id": 1753702956340,
+      "id": "1753702956340",
       "movieId": 1087192,
       "userId": "1752488993984",
       "rating": 2,
@@ -85,30 +85,22 @@
   ],
   "blogs": [
     {
-      "id": "1",
-      "title": "Why Nolan's Movies Are So Addictive",
-      "content": "Nolan's storytelling and use of time as a theme makes his work stand out...",
-      "authorId": 1,
-      "tags": [
-        "Nolan",
-        "Sci-Fi",
-        "Directing"
-      ],
-      "image": "https://source.unsplash.com/featured/?cinema,film",
-      "createdAt": "2025-07-08T10:00:00Z"
+      "id": "1753873210703",
+      "title": "Movie",
+      "content": "Movieeeeees",
+      "authorId": "1752488993984",
+      "image": "image",
+      "createdAt": "7/30/2025, 1:00:10 PM",
+      "status": "pending"
     },
     {
-      "id": "2",
-      "title": "Top 5 Crime Movies That Changed Cinema",
-      "content": "Crime films have shaped Hollywood for decades. Here are 5 that redefined the genre...",
-      "authorId": 2,
-      "tags": [
-        "Crime",
-        "Classics",
-        "Movies"
-      ],
-      "image": "https://source.unsplash.com/featured/?movie,crime",
-      "createdAt": "2025-07-09T09:30:00Z"
+      "id": "1753873265167",
+      "title": "Test2",
+      "content": "test2",
+      "authorId": "1752488993984",
+      "image": "test",
+      "createdAt": "7/30/2025, 1:01:05 PM",
+      "status": "pending"
     }
   ],
   "blogComments": [
@@ -169,28 +161,28 @@
       "date": 1752921298123
     },
     {
-      "id": 1753702979588,
+      "id": "1753702979588",
       "blogId": "2",
       "userId": "1752488993984",
       "comment": "fsdfdresdaers",
       "date": 1753702979588
     },
     {
-      "id": 1753703031276,
+      "id": "1753703031276",
       "blogId": "1",
       "userId": "1752488993984",
       "comment": "dazrzdszdt",
       "date": 1753703031276
     },
     {
-      "id": 1753703060813,
+      "id": "1753703060813",
       "blogId": "2",
       "userId": "1752488993984",
       "comment": "top 5 crimes\n",
       "date": 1753703060813
     },
     {
-      "id": 1753703068637,
+      "id": "1753703068637",
       "blogId": "1",
       "userId": "1752488993984",
       "comment": "Nolan",

@@ -1,0 +1,71 @@
+.create-blog-page {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  .page-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .create-blog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      .form-label {
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .form-input,
+      .form-textarea,
+      select {
+        padding: 10px 14px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border 0.2s;
+
+        &:focus {
+          border-color: #4a90e2;
+        }
+        &::placeholder {
+          color: #807d7d;
+        }
+      }
+
+      .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+    }
+
+    .btn--primary {
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: #357abd;
+      }
+    }
+  }
+}

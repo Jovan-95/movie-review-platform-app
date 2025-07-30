@@ -45,13 +45,13 @@ export type Review = {
 
 // Blog
 export type Blog = {
-  id: number;
+  id: string;
   title: string;
   content: string;
-  authorId: number;
-  tags: string[];
+  authorId: string;
   image: string;
   createdAt: string;
+  status: string;
 };
 
 // Comment

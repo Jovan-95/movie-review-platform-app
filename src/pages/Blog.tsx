@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "../services";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import type { Blog } from "../types";
 
 function Blog() {
+  const navigate = useNavigate();
   // Getting blogs
   const {
     data: blogs,
@@ -22,7 +23,21 @@ function Blog() {
     <div className="home">
       {/* <!-- Blogs --> */}
       <section className="section movies-preview">
-        <h2 className="section__title">Blogs</h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <h2 className="section__title">Blogs</h2>
+          <button
+            onClick={() => navigate("/blog/create-new-blog")}
+            className="btn btn--primary"
+          >
+            <span>Create new blog +</span>
+          </button>
+        </div>
         <div className="cards">
           {blogs.map((blog: Blog) => (
             <NavLink key={blog.id} to={`/blog/${blog.id}`}>

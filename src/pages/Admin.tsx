@@ -110,35 +110,35 @@ function Admin() {
           </table>
         </section>
 
-        {/* -------- Blogs, commented for now -------- */}
-        {/* <section className="admin-section">
-        <h2 className="section-title">Blog Posts</h2>
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Author</th>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>#302</td>
-              <td>Anna Smith</td>
-              <td>Best Movies 2024</td>
-              <td>
-                <span className="badge pending">Pending</span>
-              </td>
-              <td>
-                <button className="btn approve">Publish</button>
-                <button className="btn reject">Reject</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section> */}
+        {/* -------- Blogs -------- */}
+        <section className="admin-section">
+          <h2 className="section-title">Blog Posts</h2>
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#302</td>
+                <td>Anna Smith</td>
+                <td>Best Movies 2024</td>
+                <td>
+                  <span className="badge pending">Pending</span>
+                </td>
+                <td>
+                  <button className="btn approve">Publish</button>
+                  <button className="btn reject">Reject</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
       </div>
 
       {/* Modal */}

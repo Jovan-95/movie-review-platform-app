@@ -43,6 +43,11 @@ function Login() {
       return;
     }
 
+    if (user.status === "rejected") {
+      alert("You are rejected!");
+      return;
+    }
+
     if (user.status === "pending") {
       alert("Your registration is waiting for approval!");
       return;

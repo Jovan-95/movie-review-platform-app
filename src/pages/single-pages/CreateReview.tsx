@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createReview, getUsers } from "../../services";
 import type { Review, User } from "../../types";
 import { useSelector } from "react-redux";
@@ -9,7 +9,6 @@ import type { RootState } from "../../Redux/store";
 
 function CreateReview() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const [reviewObj, setReviewObj] = useState({ rating: "", content: "" });
@@ -69,8 +68,6 @@ function CreateReview() {
     createReviewMut.mutate(newReview);
     alert("Review is submitted");
   }
-
-  //   TODO JOVAN, create reviewObj
 
   return (
     <form className="review-form">

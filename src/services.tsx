@@ -12,7 +12,7 @@ const localhostUrl = "http://localhost:3001";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-import type { Comment, Review, User } from "./types";
+import type { Blog, Comment, Review, User } from "./types";
 
 //// Users
 // Post HTTP method
@@ -143,6 +143,25 @@ export async function createReview(review: Review) {
 export async function getBlogs() {
   try {
     const res = await fetch(`${localhostUrl}/blogs`);
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Post HTTP method
+export async function postBlog(blog: Blog) {
+  try {
+    const res = await fetch(`${localhostUrl}/blogs`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blog),
+    });
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
     // console.log(data);
