@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { changeUserStatus, getUsers } from "../services";
-import type { User } from "../types";
+import {
+  changeBlogStatus,
+  changeUserStatus,
+  getBlogs,
+  getUsers,
+} from "../services";
+import type { Blog, User } from "../types";
 import { useState } from "react";
 import Modal from "../components/Modal";
 
@@ -20,6 +25,16 @@ function Admin() {
     queryFn: getUsers,
   });
 
+  // Getting blogs
+  const {
+    data: blogs,
+    isLoading: blogsIsLoading,
+    error: blogsError,
+  } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getBlogs,
+  });
+
   // Patch HTTP method calling
   const { mutate: userStatusChangingMutation } = useMutation({
     mutationFn: ({
@@ -35,6 +50,20 @@ function Admin() {
     },
   });
 
+  // Patch HTTP method calling
+  const { mutate: blogStatusChangingMutation } = useMutation({
+    mutationFn: ({
+      id,
+      status,
+    }: {
+      id: string | number;
+      status: "published" | "rejected";
+    }) => changeBlogStatus(id, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+    },
+  });
+
   function handleOpenModal(user: User) {
     setModal((prev) => !prev);
     setTargetUser(user);
@@ -42,7 +71,7 @@ function Admin() {
 
   // Approve user
   function approveUser() {
-    console.log("target user", targetUser);
+    // console.log("target user", targetUser);
 
     userStatusChangingMutation({
       id: targetUser.id,
@@ -66,9 +95,26 @@ function Admin() {
     });
   }
 
-  if (usersIsLoading) return <p>Loading...</p>;
-  if (usersError) return <p>{usersError?.message}</p>;
-  if (!users) return <p>No data found.</p>;
+  // Blogs
+  function handlePublishingBlog(blogId: string) {
+    blogStatusChangingMutation({
+      id: blogId,
+      status: "published",
+    });
+  }
+  function handleRejectingBlog(blogId: string) {
+    blogStatusChangingMutation({
+      id: blogId,
+      status: "rejected",
+    });
+  }
+
+  // Prevent Error
+  if (!Array.isArray(users)) return null;
+
+  if (usersIsLoading || blogsIsLoading) return <p>Loading...</p>;
+  if (usersError || blogsError) return <p>{usersError?.message}</p>;
+  if (!users || !blogs) return <p>No data found.</p>;
   return (
     <>
       <div className="admin-page">
@@ -94,7 +140,9 @@ function Admin() {
                   <td>{user.role}</td>
 
                   <td>
-                    <span className="badge pending">{user.status}</span>
+                    <span className={`badge ${user.status}`}>
+                      {user.status}
+                    </span>
                   </td>
                   <td>
                     <button
@@ -124,18 +172,39 @@ function Admin() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>#302</td>
-                <td>Anna Smith</td>
-                <td>Best Movies 2024</td>
-                <td>
-                  <span className="badge pending">Pending</span>
-                </td>
-                <td>
-                  <button className="btn approve">Publish</button>
-                  <button className="btn reject">Reject</button>
-                </td>
-              </tr>
+              {blogs.map((blog: Blog) => {
+                // Find author by id
+                const author = users.find(
+                  (user: User) => user.id === blog.authorId
+                );
+
+                return (
+                  <tr key={blog.id}>
+                    <td>#{blog.id}</td>
+                    <td>{author.username}</td>
+                    <td>{blog.title}</td>
+                    <td>
+                      <span className={`badge ${blog.status}`}>
+                        {blog.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handlePublishingBlog(blog.id)}
+                        className="btn approve"
+                      >
+                        Publish
+                      </button>
+                      <button
+                        onClick={() => handleRejectingBlog(blog.id)}
+                        className="btn reject"
+                      >
+                        Reject
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </section>

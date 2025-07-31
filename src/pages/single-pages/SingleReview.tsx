@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPopularMovies, getReviews } from "../../services";
-import type { Movie, Review } from "../../types";
+import { getPopularMovies, getReviews, getUsers } from "../../services";
+import type { Movie, Review, User } from "../../types";
 
 function SingleReview() {
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -24,14 +25,26 @@ function SingleReview() {
     isLoading: moviesIsLoading,
     error: moviesError,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: [`movie/popular?api_key=${API_KEY}&language=en-US&page=1`],
     queryFn: getPopularMovies,
   });
 
+  // Getting users
+  const {
+    data: users,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+
   // Error handling
-  if (reviewsIsLoading || moviesIsLoading) return <p>Loading...</p>;
-  if (reviewsError || moviesError) return <p>{reviewsError?.message}</p>;
-  if (!reviews || !movies) return <p>No data found.</p>;
+  if (reviewsIsLoading || moviesIsLoading || usersIsLoading)
+    return <p>Loading...</p>;
+  if (reviewsError || moviesError || usersError)
+    return <p>{reviewsError?.message}</p>;
+  if (!reviews || !movies || !users) return <p>No data found.</p>;
 
   // Single review
   const singleReview = reviews.find(
@@ -40,9 +53,18 @@ function SingleReview() {
 
   // Prevent Error
   if (!Array.isArray(movies.results)) return null;
+
+  // Prevent Error
+  if (!Array.isArray(users)) return null;
+
   // Finding movie for this review
   const movie = movies.results.find(
     (m: Movie) => m.id === singleReview.movieId
+  );
+
+  // Find review author
+  const reviewAuthor = users.find(
+    (user: User) => user.id === singleReview.userId
   );
   return (
     <>
@@ -61,6 +83,10 @@ function SingleReview() {
 
             <p className="single-movie__description">
               Review: {singleReview.content}
+            </p>
+
+            <p className="single-movie__description">
+              Author: {reviewAuthor.username}
             </p>
             <p className="single-movie__meta">
               <span className="single-movie__year">

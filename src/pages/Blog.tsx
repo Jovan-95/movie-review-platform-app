@@ -16,6 +16,11 @@ function Blog() {
     queryFn: getBlogs,
   });
 
+  // Show only published blogs (approved by admin)
+  const publishedBlogs = blogs.filter(
+    (blog: Blog) => blog.status === "published"
+  );
+
   // Error handling
   if (blogsIsLoading) return <p>Loading...</p>;
   if (blogsError) return <p>{blogsError?.message}</p>;
@@ -39,7 +44,7 @@ function Blog() {
           </button>
         </div>
         <div className="cards">
-          {blogs.map((blog: Blog) => (
+          {publishedBlogs.map((blog: Blog) => (
             <NavLink key={blog.id} to={`/blog/${blog.id}`}>
               <div className="card">
                 {/* <img

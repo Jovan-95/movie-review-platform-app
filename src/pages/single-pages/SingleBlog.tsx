@@ -75,6 +75,11 @@ function SingleBlog() {
   // Prevent Error
   if (!Array.isArray(users)) return null;
 
+  // Find blog author
+  const blogAuthor = users.find(
+    (user: User) => String(user.id) === String(singleBlog.authorId)
+  );
+
   // Find user on
   const currentUser = users.find(
     (user: User) => Number(user.id) === Number(loggedUser.id)
@@ -133,6 +138,9 @@ function SingleBlog() {
             </p>
 
             <p className="single-movie__description">{singleBlog.content}</p>
+            <p className="single-movie__description">
+              Author: {blogAuthor?.username}
+            </p>
 
             <button className="single-movie__btn">Add to Favorites</button>
             <button
@@ -174,7 +182,7 @@ function SingleBlog() {
               {sortedComments.map((comment: Comment) => {
                 // Find author by id
                 const author = users.find(
-                  (user: User) => user.id === comment.userId
+                  (user: User) => String(user.id) === String(comment.userId)
                 );
 
                 return (

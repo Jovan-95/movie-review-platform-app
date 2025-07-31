@@ -14,7 +14,7 @@
       "email": "test@gmail.com",
       "password": "111111",
       "role": "user",
-      "status": "banned"
+      "status": "active"
     },
     {
       "id": "1753696027103",
@@ -22,7 +22,15 @@
       "email": "s@gmail.com",
       "password": "111111",
       "role": "user",
-      "status": "rejected"
+      "status": "banned"
+    },
+    {
+      "id": "1753953192168",
+      "username": "cica",
+      "email": "cica@gmail.com",
+      "password": "111111",
+      "role": "user",
+      "status": "pending"
     }
   ],
   "reviews": [
@@ -91,7 +99,7 @@
       "authorId": "1752488993984",
       "image": "image",
       "createdAt": "7/30/2025, 1:00:10 PM",
-      "status": "pending"
+      "status": "published"
     },
     {
       "id": "1753873265167",
@@ -100,7 +108,16 @@
       "authorId": "1752488993984",
       "image": "test",
       "createdAt": "7/30/2025, 1:01:05 PM",
-      "status": "pending"
+      "status": "published"
+    },
+    {
+      "id": "1753951209094",
+      "title": "NewBlogTitle",
+      "content": "NEEEWWWSSSS",
+      "authorId": "1753696027103",
+      "image": "test",
+      "createdAt": "7/31/2025, 10:40:09 AM",
+      "status": "rejected"
     }
   ],
   "blogComments": [
@@ -187,6 +204,20 @@
       "userId": "1752488993984",
       "comment": "Nolan",
       "date": 1753703068637
+    },
+    {
+      "id": 1753953465960,
+      "blogId": "1753873265167",
+      "userId": "1752488993984",
+      "comment": "test",
+      "date": 1753953465960
+    },
+    {
+      "id": 1753953674656,
+      "blogId": "1753873210703",
+      "userId": "1752488993984",
+      "comment": "tttt",
+      "date": 1753953674656
     }
   ]
 }

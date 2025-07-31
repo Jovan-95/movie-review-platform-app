@@ -55,7 +55,12 @@
           color: #a67c00;
         }
 
-        &.approved {
+        &.active {
+          background-color: #55efc4;
+          color: #00695c;
+        }
+
+        &.published {
           background-color: #55efc4;
           color: #00695c;
         }

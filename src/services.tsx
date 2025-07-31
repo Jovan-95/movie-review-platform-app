@@ -171,6 +171,26 @@ export async function postBlog(blog: Blog) {
   }
 }
 
+//// Patch HTTP method change blog status (publish, reject)
+export async function changeBlogStatus(
+  blogId: string | number,
+  status: "published" | "rejected"
+) {
+  const response = await fetch(`${localhostUrl}/blogs/${blogId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update user status");
+  }
+
+  return response.json();
+}
+
 // Comments
 // Post HTTP method
 export async function postComment(comment: Comment) {
