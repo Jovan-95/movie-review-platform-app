@@ -147,6 +147,7 @@ function Profile() {
       <div className={modal ? "d-block" : "d-none"}>
         <Modal>
           <div
+            className="p-20"
             onClick={() => setModal(false)}
             style={{ textAlign: "right", cursor: "pointer" }}
           >
@@ -208,7 +209,7 @@ function Profile() {
       {/* Logout modal */}
       <div className={logoutModal ? "d-block" : "d-none"}>
         <Modal>
-          <div>
+          <div className="p-20">
             <p>Are you sure you want to logout?</p>
             <div>
               <button

@@ -213,32 +213,28 @@ function Admin() {
       {/* Modal */}
       <div className={modal ? "d-block" : "d-none"}>
         <Modal>
-          <>
+          <div className="action-modal">
             <div
+              className="action-modal__close"
               onClick={() => setModal(false)}
-              style={{
-                display: "flex",
-                justifyContent: "end",
-                cursor: "pointer",
-              }}
             >
               X
             </div>
-            <div>
-              Choose what you want to do with <b>{targetUser?.username}?</b>{" "}
+            <div className="action-modal__title">
+              Choose what you want to do with <b>{targetUser?.username}?</b>
             </div>
-            <div>
-              <button onClick={approveUser} className="btn">
+            <div className="action-modal__buttons">
+              <button onClick={approveUser} className="btn btn--approve">
                 Approve
               </button>
-              <button onClick={rejectUser} className="btn">
+              <button onClick={rejectUser} className="btn btn--reject">
                 Reject
               </button>
-              <button onClick={banUser} className="btn">
+              <button onClick={banUser} className="btn btn--ban">
                 Ban
               </button>
             </div>
-          </>
+          </div>
         </Modal>
       </div>
     </>

@@ -1,25 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { getUsers } from "../services";
 import { useState } from "react";
 import type { LoginFormUser, User } from "../types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addLoggedUser } from "../Redux/slice";
+import type { RootState } from "../Redux/store";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Users are called from redux, because they are needed on every page
+  const { users, loading } = useSelector((state: RootState) => state.users);
+
   const [loginUserObj, setLoginUserObj] = useState<LoginFormUser>({
     email: "",
     password: "",
-  });
-
-  // Getting users from services with reactQuery
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["users"],
-    queryFn: getUsers,
   });
 
   // Login
@@ -27,7 +24,7 @@ function Login() {
     e.preventDefault();
 
     // Comparing login credentials with registered users
-    const user = data.find(
+    const user = users.find(
       (user: User) =>
         user.email === loginUserObj.email &&
         user.password === loginUserObj.password
@@ -60,9 +57,6 @@ function Login() {
       navigate("/");
     }
   }
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
 
   return (
     <div className="auth-wrapper">

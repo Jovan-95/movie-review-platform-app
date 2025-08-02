@@ -117,7 +117,7 @@ function Sidebar() {
       </div>
       <div className={logoutModal ? "d-block" : "d-none"}>
         <Modal>
-          <div>
+          <div className="p-20">
             <p>Are you sure you want to logout?</p>
             <div>
               <button

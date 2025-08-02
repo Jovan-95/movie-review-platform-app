@@ -1,0 +1,74 @@
+.action-modal {
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  background: linear-gradient(to top, #2a5298, #141e30);
+  border-radius: 10px;
+
+  &__close {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #aaa;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &__title {
+    margin: 20px 0;
+    font-size: 1rem;
+    color: #ddd;
+
+    b {
+      color: #00bcd4;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: 0.2s;
+
+      &--approve {
+        background: #4caf50;
+        color: white;
+
+        &:hover {
+          background: #43a047;
+        }
+      }
+
+      &--reject {
+        background: #ff9800;
+        color: white;
+
+        &:hover {
+          background: #fb8c00;
+        }
+      }
+
+      &--ban {
+        background: #f44336;
+        color: white;
+
+        &:hover {
+          background: #e53935;
+        }
+      }
+    }
+  }
+}

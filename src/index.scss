@@ -2,6 +2,8 @@
 @import "./scss/components/layout.scss";
 @import "./scss/app-wrapper.scss";
 @import "./scss/components/modal.scss";
+@import "./scss/components/search-modal.scss";
+@import "./scss/components/actions-modal.scss";
 @import "./scss/components/comments.scss";
 @import "./scss/components/buttons.scss";
 @import "./scss/components/review-form.scss";
@@ -87,4 +89,8 @@ a {
 
 .h-100 {
   height: 100%;
+}
+
+.p-20 {
+  padding: 20px;
 }

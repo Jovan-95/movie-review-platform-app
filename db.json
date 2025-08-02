@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1752488993984",
-      "username": "Jovan",
+      "username": "Jovan-95",
       "email": "vuksanovicjovan@hotmail.com",
       "password": "111111",
       "role": "admin",
@@ -22,7 +22,7 @@
       "email": "s@gmail.com",
       "password": "111111",
       "role": "user",
-      "status": "banned"
+      "status": "active"
     },
     {
       "id": "1753953192168",
@@ -117,7 +117,7 @@
       "authorId": "1753696027103",
       "image": "test",
       "createdAt": "7/31/2025, 10:40:09 AM",
-      "status": "rejected"
+      "status": "published"
     }
   ],
   "blogComments": [
@@ -206,14 +206,14 @@
       "date": 1753703068637
     },
     {
-      "id": 1753953465960,
+      "id": "1753953465960",
       "blogId": "1753873265167",
       "userId": "1752488993984",
       "comment": "test",
       "date": 1753953465960
     },
     {
-      "id": 1753953674656,
+      "id": "1753953674656",
       "blogId": "1753873210703",
       "userId": "1752488993984",
       "comment": "tttt",

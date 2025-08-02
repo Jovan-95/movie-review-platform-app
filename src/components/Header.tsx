@@ -9,10 +9,16 @@ import type { RootState } from "../Redux/store";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs, getPopularMovies, getReviews, getUsers } from "../services";
+import useGlobalSearch from "../hooks/useGlobalSearch";
 
 function Header() {
   const [notificationsModal, setNotificationsModal] = useState(false);
   const navigate = useNavigate();
+
+  // Users are loaded from redux
+  const { users, loading } = useSelector((state: RootState) => state.users);
+  const [searchQuery, setSearchQuery] = useState("");
+  const results = useGlobalSearch(searchQuery);
 
   function showNotificationsModal() {
     setNotificationsModal((prev) => !prev);
@@ -64,20 +70,10 @@ function Header() {
     queryFn: getBlogs,
   });
 
-  // Get users
-  const {
-    data: users,
-    isLoading: usersIsLoading,
-    error: usersError,
-  } = useQuery({
-    queryKey: ["users"],
-    queryFn: getUsers,
-  });
-
   // Error handling
-  if (moviesIsLoading || reviewsIsLoading || blogsIsLoading || usersIsLoading)
-    return <p>Loading...</p>;
-  if (moviesError || reviewsError || blogsError || usersError)
+  if (moviesIsLoading || reviewsIsLoading || blogsIsLoading)
+    <div>{users ? users.length : "..."}</div>;
+  if (moviesError || reviewsError || blogsError)
     return <p>{reviewsError?.message}</p>;
 
   // console.log(movies.results);
@@ -94,6 +90,8 @@ function Header() {
             className="header-search"
             placeholder="Search..."
             type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <div className="time-wrapper">
@@ -129,25 +127,26 @@ function Header() {
       <div className="boxes-wrapper">
         <div className="box mr-16">
           <div>Users</div>
-          <div>{users.length}</div>
+          <div>{users?.length ?? 0}</div>
         </div>
         <div className="box mr-16">
           <div>Movies</div>
-          <div>{movies.results.length}</div>
+          <div>{movies?.results?.length ?? 0}</div>
         </div>
         <div className="box mr-16">
           <div>Reviews</div>
-          <div>{reviews.length}</div>
+          <div>{reviews?.length ?? 0}</div>
         </div>
         <div className="box">
           <div>Blogs</div>
-          <div>{blogs.length}</div>
+          <div>{blogs?.length ?? 0}</div>
         </div>
       </div>
+
       {/* Modal */}
       <div className={notificationsModal ? "d-block" : "d-none"}>
         <Modal>
-          <div>
+          <div className="p-20">
             <div style={{ textAlign: "right" }}>
               <span
                 onClick={() => setNotificationsModal(false)}
@@ -160,6 +159,24 @@ function Header() {
           </div>
         </Modal>
       </div>
+      {/* Modal showing search results when typing starts */}
+      {searchQuery && (
+        <Modal>
+          {" "}
+          <div className="search-results">
+            {results.length === 0 ? (
+              <div>No results found</div>
+            ) : (
+              results.map((item) => (
+                <div key={item.id} className="search-result">
+                  <strong>{item.type.toUpperCase()}:</strong>{" "}
+                  {item.title || item.username}
+                </div>
+              ))
+            )}
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

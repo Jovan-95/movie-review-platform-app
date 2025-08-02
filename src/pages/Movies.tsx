@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { getPopularMovies } from "../services";
 import type { Movie } from "../types";
@@ -10,7 +11,7 @@ function Movies() {
     isLoading: moviesIsLoading,
     error: moviesError,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["movies"],
     queryFn: getPopularMovies,
   });
 

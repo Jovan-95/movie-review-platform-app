@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import SingleMovie from "./pages/single-pages/SingleMovie";
@@ -8,6 +8,8 @@ import SingleReview from "./pages/single-pages/SingleReview";
 import CreateReview from "./pages/single-pages/CreateReview";
 import PublicRoute from "./components/PublicRoute";
 import CreateNewBlog from "./pages/CreateNewBlog";
+import { useDispatch } from "react-redux";
+import { fetchUsers } from "./Redux/usersSlice";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -19,6 +21,12 @@ const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Suspense fallback={<h2>Loading...</h2>}>

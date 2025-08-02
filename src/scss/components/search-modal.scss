@@ -1,0 +1,39 @@
+.search-results {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background: linear-gradient(to top, #2a5298, #141e30);
+  color: #fff;
+
+  //   margin-top: 8px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  .search-result {
+    padding: 10px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+
+    strong {
+      color: #00bcd4; // boja tipa (user/movie/blog)
+      font-weight: 600;
+    }
+
+    &:hover {
+      background: #2a2a2a;
+    }
+  }
+
+  // Scroll bar stil
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 3px;
+  }
+}
