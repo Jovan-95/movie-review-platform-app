@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../Redux/slice";
+import { showErrorToast, showSuccessToast } from "../components/Toast";
 
 function Profile() {
   const [modal, setModal] = useState<boolean>(false);
@@ -78,11 +79,11 @@ function Profile() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      return alert("Passwords do not match");
+      return showErrorToast("Passwords do not match");
     }
 
     if (!username || !email || !password) {
-      return alert("All fields are required");
+      return showErrorToast("All fields are required");
     }
 
     const editedObj = {
@@ -92,7 +93,7 @@ function Profile() {
     };
 
     editUserFormFields({ userId: String(currentUser.id), editedObj });
-    alert("Changes are saved!");
+    showSuccessToast("Changes are saved!");
     setModal(false);
   }
 

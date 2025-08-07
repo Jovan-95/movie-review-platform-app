@@ -7,6 +7,7 @@
 @import "./scss/components/comments.scss";
 @import "./scss/components/buttons.scss";
 @import "./scss/components/review-form.scss";
+@import "./scss/components/notifications.scss";
 @import "./scss/pages/auth-pages.scss";
 @import "./scss/pages/home.scss";
 @import "./scss/pages/single-movie.scss";
@@ -93,4 +94,12 @@ a {
 
 .p-20 {
   padding: 20px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.text-18 {
+  font-size: 18px !important;
 }

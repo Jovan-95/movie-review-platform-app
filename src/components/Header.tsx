@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs, getPopularMovies, getReviews, getUsers } from "../services";
 import useGlobalSearch from "../hooks/useGlobalSearch";
+import Notifications from "./Notifications";
 
 function Header() {
   const [notificationsModal, setNotificationsModal] = useState(false);
@@ -155,7 +156,9 @@ function Header() {
                 X
               </span>
             </div>
-            <div>Notifications:</div>
+            <div>
+              <Notifications />
+            </div>
           </div>
         </Modal>
       </div>

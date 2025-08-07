@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { LoginFormUser, User } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { addLoggedUser } from "../Redux/slice";
 import type { RootState } from "../Redux/store";
+import {
+  showErrorToast,
+  showInfoToast,
+  showSuccessToast,
+} from "../components/Toast";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,28 +35,28 @@ function Login() {
     );
 
     if (!user) {
-      alert("Wrong credentials!");
+      showErrorToast("Wrong credentials!");
       return;
     }
 
     if (user.status === "banned") {
-      alert("You are banned!");
+      showErrorToast("You are banned!");
       return;
     }
 
     if (user.status === "rejected") {
-      alert("You are rejected!");
+      showErrorToast("You are rejected!");
       return;
     }
 
     if (user.status === "pending") {
-      alert("Your registration is waiting for approval!");
+      showInfoToast("Your registration is waiting for approval!");
       return;
     }
 
     // Keeping user in Redux
     if (user) {
-      alert("Credentials are matching!");
+      showSuccessToast("Credentials are matching!");
       dispatch(addLoggedUser(user));
       navigate("/");
     }

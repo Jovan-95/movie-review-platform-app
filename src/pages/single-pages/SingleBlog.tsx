@@ -6,6 +6,7 @@ import type { Blog, Comment, User } from "../../types";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../Redux/store";
 import { useState } from "react";
+import { showErrorToast } from "../../components/Toast";
 
 function SingleBlog() {
   const { id } = useParams();
@@ -50,7 +51,7 @@ function SingleBlog() {
       queryClient.invalidateQueries({ queryKey: ["blogComments"] });
     },
     onError: (err) => {
-      alert("Registration failed!");
+      showErrorToast("Registration failed!");
     },
   });
 
@@ -99,7 +100,7 @@ function SingleBlog() {
     // console.log("user", currentUser);
 
     if (!commentObj.comment.trim()) {
-      alert("Comment is empty!");
+      showErrorToast("Comment is empty!");
       return;
     }
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { postBlog } from "../services";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Redux/store";
+import { showErrorToast, showInfoToast } from "../components/Toast";
 
 function CreateNewBlog() {
   const queryClient = useQueryClient();
@@ -21,7 +22,7 @@ function CreateNewBlog() {
       queryClient.invalidateQueries({ queryKey: ["blog"] });
     },
     onError: (err) => {
-      alert("Registration failed!");
+      showErrorToast("Registration failed!");
     },
   });
 
@@ -37,7 +38,7 @@ function CreateNewBlog() {
       blogObj.content === "" ||
       blogObj.image === ""
     ) {
-      alert("Fill all fields!");
+      showErrorToast("Fill all fields!");
       return;
     }
 
@@ -52,7 +53,7 @@ function CreateNewBlog() {
     };
 
     createBlogMut.mutate(newBlog);
-    alert("Your blog is submitted for review");
+    showInfoToast("Your blog is submitted for review");
 
     blogObj.title = "";
     blogObj.category = "";

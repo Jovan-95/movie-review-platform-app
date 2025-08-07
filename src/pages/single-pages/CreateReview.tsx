@@ -6,6 +6,7 @@ import { createReview, getUsers } from "../../services";
 import type { Review, User } from "../../types";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../Redux/store";
+import { showErrorToast, showSuccessToast } from "../../components/Toast";
 
 function CreateReview() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function CreateReview() {
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
     },
     onError: (err) => {
-      alert("Registration failed!");
+      showErrorToast("Registration failed!");
     },
   });
 
@@ -53,7 +54,7 @@ function CreateReview() {
     // console.log("current user", currentUser);
 
     if (reviewObj.rating === "" || reviewObj.content === "")
-      return alert("Fields are emtpy!");
+      return showErrorToast("Fields are emtpy!");
 
     // New review creating
     const newReview: Review = {
@@ -66,7 +67,7 @@ function CreateReview() {
     };
 
     createReviewMut.mutate(newReview);
-    alert("Review is submitted");
+    showSuccessToast("Review is submitted");
   }
 
   return (

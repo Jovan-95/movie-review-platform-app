@@ -10,6 +10,7 @@ import PublicRoute from "./components/PublicRoute";
 import CreateNewBlog from "./pages/CreateNewBlog";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "./Redux/usersSlice";
+import { ToastContainer } from "react-toastify";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -30,6 +31,7 @@ function App() {
   return (
     <BrowserRouter>
       <Suspense fallback={<h2>Loading...</h2>}>
+        <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           <Route
             path="/register"
