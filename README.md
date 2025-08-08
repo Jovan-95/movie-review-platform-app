@@ -30,16 +30,20 @@ This app includes **authentication**, **role-based access control**, **search ac
 ## 📸 Screenshots
 
 ### 🏠 Home Page
+
 ![Home Page](./screenshots/home.png)
 
 ### 🎬 Movies Page
+
 ![Movies Page](./screenshots/movies.png)
 
 ### 📖 Blog Section
-![Blog Page](./screenshots/blog.png)
+
+![Blog Page](./screenshots/admin.png)
 
 ### 🗂 Admin Panel
-![Admin Panel](./screenshots/admin.png)
+
+![Admin Panel](./screenshots/new-blog.png)
 
 ---
 
@@ -48,3 +52,4 @@ This app includes **authentication**, **role-based access control**, **search ac
 ```bash
 # 1️⃣ Clone the repository
 git clone https://github.com/your-username/movie-review-platform.git
+```
