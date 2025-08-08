@@ -37,11 +37,11 @@ This app includes **authentication**, **role-based access control**, **search ac
 
 ![Movies Page](./screenshots/movies.png)
 
-### 📖 Blog Section
+### 🗂 Admin Panel
 
 ![Admin Panel](./screenshots/admin.png)
 
-### 🗂 Admin Panel
+### 📖 Blog Section
 
 ![New blog](./screenshots/new-blog.png)
 
