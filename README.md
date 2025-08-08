@@ -39,11 +39,11 @@ This app includes **authentication**, **role-based access control**, **search ac
 
 ### 📖 Blog Section
 
-![Blog Page](./screenshots/admin.png)
+![Admin Panel](./screenshots/admin.png)
 
 ### 🗂 Admin Panel
 
-![Admin Panel](./screenshots/new-blog.png)
+![New blog](./screenshots/new-blog.png)
 
 ---
 
