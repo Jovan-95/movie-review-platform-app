@@ -35,6 +35,39 @@
       }
     }
   }
+  // NEW: upload styles
+  .upload-wrapper {
+    margin-top: 1rem;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      display: inline-block;
+      background: #3498db;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #2d80b5;
+      }
+    }
+
+    .upload-info {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.3rem;
+    }
+  }
 
   .profile-details {
     .detail-item {

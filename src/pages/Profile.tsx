@@ -20,6 +20,9 @@ function Profile() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // NEW - state za upload slike
+  const [profileImage, setProfileImage] = useState<string>(""); // NEW
+
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,7 +63,7 @@ function Profile() {
   // Prevent Error
   if (!Array.isArray(users)) return null;
 
-  // Find user on
+  // Find user on BE
   const currentUser = users.find(
     (user: User) => String(user.id) === String(loggedUser.id)
   );
@@ -72,6 +75,19 @@ function Profile() {
     setEmail(currentUser.email);
     setPassword(currentUser.password); // Assuming you store plain text (in real apps, don't)
     setConfirmPassword(currentUser.password);
+    setProfileImage(currentUser.profileImage || ""); // NEW
+  }
+
+  // NEW - funkcija za konvertovanje slike u Base64
+  function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfileImage(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   }
 
   // Submit EDITED obj
@@ -90,6 +106,7 @@ function Profile() {
       username,
       email,
       password,
+      profileImage,
     };
 
     editUserFormFields({ userId: String(currentUser.id), editedObj });
@@ -111,7 +128,7 @@ function Profile() {
     <div className="profile-page">
       <div className="profile-header">
         <img
-          src="https://via.placeholder.com/120"
+          src={currentUser?.profileImage || "https://via.placeholder.com/120"}
           alt="Profile"
           className="profile-avatar"
         />
@@ -155,6 +172,25 @@ function Profile() {
             X
           </div>
           <form onSubmit={handleSubmit} className="auth-form">
+            <div className="form-group">
+              <label className="form-label">Profile Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+              {profileImage && (
+                <img
+                  src={profileImage}
+                  alt="Preview"
+                  style={{
+                    width: "100px",
+                    marginTop: "10px",
+                    borderRadius: "8px",
+                  }}
+                />
+              )}
+            </div>
             <div className="form-group">
               <label className="form-label">Username</label>
               <input

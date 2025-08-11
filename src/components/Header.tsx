@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getBlogs, getPopularMovies, getReviews, getUsers } from "../services";
 import useGlobalSearch from "../hooks/useGlobalSearch";
 import Notifications from "./Notifications";
+import type { User } from "../types";
 
 function Header() {
   const [notificationsModal, setNotificationsModal] = useState(false);
@@ -82,6 +83,10 @@ function Header() {
   // console.log(users);
   // console.log(reviews);
 
+  const currentUser = users.find(
+    (foundUser: User) => String(foundUser.id) === String(user.id)
+  );
+
   return (
     <div className="header-wrapper">
       <div className="header">
@@ -101,7 +106,7 @@ function Header() {
         </div>
         <div className="profile-wrapper">
           {user ? (
-            <div className="profile-name">{user.username}</div>
+            <div className="profile-name">{currentUser?.username}</div>
           ) : (
             <div>
               <button
@@ -116,10 +121,12 @@ function Header() {
           <div>
             <img onClick={showNotificationsModal} src={bellIcon} alt="" />
           </div>
-          <div>
+          <div className="img-wrapper">
             <img
               onClick={() => navigate("/profile")}
-              src={profileIcon}
+              src={
+                currentUser?.profileImage || "https://via.placeholder.com/120"
+              }
               alt=""
             />
           </div>
