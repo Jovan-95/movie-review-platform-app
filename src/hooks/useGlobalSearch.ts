@@ -7,7 +7,7 @@ import type { Blog, Movie, Review, User } from "../types";
 
 function useGlobalSearch(query: string) {
   // Users are loaded from redux
-  const { users, loading } = useSelector((state: RootState) => state.users);
+  const { users } = useSelector((state: RootState) => state.users);
 
   // Getting movies
   const { data: movies } = useQuery({

@@ -1,24 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import searchIcon from "../assets/icons/search-icon.svg";
 import bellIcon from "../assets/icons/bell-icon.svg";
-import profileIcon from "../assets/icons/profile-icon.svg";
 import Modal from "./Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Redux/store";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getBlogs, getPopularMovies, getReviews, getUsers } from "../services";
+import { getBlogs, getPopularMovies, getReviews } from "../services";
 import useGlobalSearch from "../hooks/useGlobalSearch";
 import Notifications from "./Notifications";
 import type { User } from "../types";
+import MobileModal from "./MobileModalNav";
 
 function Header() {
   const [notificationsModal, setNotificationsModal] = useState(false);
   const navigate = useNavigate();
 
+  // Mobile modal
+  const [mobModal, setMobModal] = useState(false);
+
   // Users are loaded from redux
-  const { users, loading } = useSelector((state: RootState) => state.users);
+  const { users } = useSelector((state: RootState) => state.users);
   const [searchQuery, setSearchQuery] = useState("");
   const results = useGlobalSearch(searchQuery);
 
@@ -87,8 +90,13 @@ function Header() {
     (foundUser: User) => String(foundUser.id) === String(user.id)
   );
 
+  function handleMobileNavModal() {
+    setMobModal((prev) => !prev);
+  }
+
   return (
     <div className="header-wrapper">
+      {/* Desktop wrapper */}
       <div className="header">
         <div className="search-wrapper">
           <img src={searchIcon} alt="" />
@@ -132,6 +140,79 @@ function Header() {
           </div>
         </div>
       </div>
+
+      {/* Mobile wrapper */}
+      <div className="mobile-header">
+        <div>
+          {" "}
+          <svg
+            onClick={handleMobileNavModal}
+            viewBox="0 0 100 80"
+            width="40"
+            height="40"
+          >
+            <rect fill="#fff" width="80" height="20" rx="10"></rect>
+            <rect fill="#fff" y="30" width="80" height="20" rx="10"></rect>
+            <rect fill="#fff" y="60" width="80" height="20" rx="10"></rect>
+          </svg>
+        </div>
+      </div>
+
+      {/* Mobile modal */}
+      {mobModal ? (
+        <MobileModal>
+          <div>
+            <div
+              onClick={() => setMobModal(false)}
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                cursor: "pointer",
+                color: "white",
+              }}
+            >
+              X
+            </div>
+            <div className="navigation">
+              <NavLink onClick={() => setMobModal(false)} to={"/"}>
+                <div className="sidebar-item">
+                  <span>HOME</span>
+                </div>
+              </NavLink>
+              <NavLink onClick={() => setMobModal(false)} to={"/movies"}>
+                <div className="sidebar-item">
+                  <span>MOVIES</span>
+                </div>
+              </NavLink>
+              <NavLink onClick={() => setMobModal(false)} to={"/blog"}>
+                <div className="sidebar-item">
+                  <span>BLOG</span>
+                </div>
+              </NavLink>
+              <NavLink onClick={() => setMobModal(false)} to={"/review"}>
+                <div className="sidebar-item">
+                  <span>REVIEWS</span>
+                </div>
+              </NavLink>
+              <NavLink onClick={() => setMobModal(false)} to={"/profile"}>
+                <div className="sidebar-item">
+                  <span>PROFILE</span>
+                </div>
+              </NavLink>
+              {currentUser?.role === "admin" && (
+                <NavLink onClick={() => setMobModal(false)} to={"/admin"}>
+                  <div className="sidebar-item">
+                    <span>ADMIN PANEL</span>
+                  </div>
+                </NavLink>
+              )}
+            </div>
+          </div>
+        </MobileModal>
+      ) : (
+        ""
+      )}
+
       <div className="boxes-wrapper">
         <div className="box mr-16">
           <div>Users</div>
@@ -174,6 +255,16 @@ function Header() {
         <Modal>
           {" "}
           <div className="search-results">
+            <div
+              onClick={() => setSearchQuery("")}
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                cursor: "pointer",
+              }}
+            >
+              X
+            </div>
             {results.length === 0 ? (
               <div>No results found</div>
             ) : (

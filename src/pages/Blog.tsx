@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { getBlogs } from "../services";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import type { Blog } from "../types";
 
 function Blog() {
@@ -16,14 +16,14 @@ function Blog() {
     queryFn: getBlogs,
   });
 
+  // Error handling
+  if (blogsIsLoading) return <p>Loading...</p>;
+  if (blogsError) return <p>{blogsError?.message}</p>;
+
   // Show only published blogs (approved by admin)
   const publishedBlogs = blogs.filter(
     (blog: Blog) => blog.status === "published"
   );
-
-  // Error handling
-  if (blogsIsLoading) return <p>Loading...</p>;
-  if (blogsError) return <p>{blogsError?.message}</p>;
   return (
     <div className="home">
       {/* <!-- Blogs --> */}

@@ -20,7 +20,7 @@ function CreateReview() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
     },
-    onError: (err) => {
+    onError: () => {
       showErrorToast("Registration failed!");
     },
   });
@@ -49,12 +49,16 @@ function CreateReview() {
 
   const currentUser = users.find((user: User) => user.id === loggedUser?.id);
 
-  function handleSubmitReview() {
+  function handleSubmitReview(e) {
+    e.preventDefault();
     // console.log("movie id", id);
     // console.log("current user", currentUser);
 
     if (reviewObj.rating === "" || reviewObj.content === "")
       return showErrorToast("Fields are emtpy!");
+
+    if (Number(reviewObj.rating) > 10)
+      return showErrorToast("Max rating is 10!");
 
     // New review creating
     const newReview: Review = {
@@ -67,6 +71,7 @@ function CreateReview() {
     };
 
     createReviewMut.mutate(newReview);
+    setReviewObj({ rating: "", content: "" });
     showSuccessToast("Review is submitted");
   }
 
@@ -111,7 +116,7 @@ function CreateReview() {
       </div>
 
       <button
-        onClick={handleSubmitReview}
+        onClick={(e) => handleSubmitReview(e)}
         type="submit"
         className="review-form__btn"
       >

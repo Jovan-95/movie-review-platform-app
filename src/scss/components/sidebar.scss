@@ -10,6 +10,10 @@
   justify-content: space-between;
   height: 100vh;
   box-shadow: -2px 0px 15px 0px #d0d5dd;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
   .sidebar-logo-wrapper {
     display: flex;
     justify-content: center;
