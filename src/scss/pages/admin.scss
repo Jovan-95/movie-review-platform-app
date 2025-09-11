@@ -4,6 +4,10 @@
   background-color: #f9f9f9;
   min-height: 100vh;
 
+  @media screen and (max-width: 1024px) {
+    margin: 0;
+    padding: 16px;
+  }
   .admin-title {
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -19,6 +23,13 @@
       color: #333;
     }
 
+    // ✅ novi wrapper za tabelu
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto; // dodaje horizontalni scroll
+      -webkit-overflow-scrolling: touch; // smooth scroll na mobilnim uređajima
+    }
+
     .admin-table {
       width: 100%;
       border-collapse: collapse;
@@ -26,12 +37,14 @@
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      min-width: 600px; // ✅ minimalna širina da aktivira scroll na manjim ekranima
 
       th,
       td {
         padding: 1rem;
         text-align: left;
         border-bottom: 1px solid #eee;
+        white-space: nowrap; // ✅ sprečava lomljenje u novi red
       }
 
       th {
@@ -55,11 +68,7 @@
           color: #a67c00;
         }
 
-        &.active {
-          background-color: #55efc4;
-          color: #00695c;
-        }
-
+        &.active,
         &.published {
           background-color: #55efc4;
           color: #00695c;

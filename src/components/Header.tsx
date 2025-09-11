@@ -87,7 +87,7 @@ function Header() {
   // console.log(reviews);
 
   const currentUser = users.find(
-    (foundUser: User) => String(foundUser.id) === String(user.id)
+    (foundUser: User) => String(foundUser.id) === String(user?.id)
   );
 
   function handleMobileNavModal() {
@@ -235,7 +235,7 @@ function Header() {
       {/* Modal */}
       <div className={notificationsModal ? "d-block" : "d-none"}>
         <Modal>
-          <div className="p-20">
+          <div className="p-16 ">
             <div style={{ textAlign: "right" }}>
               <span
                 onClick={() => setNotificationsModal(false)}

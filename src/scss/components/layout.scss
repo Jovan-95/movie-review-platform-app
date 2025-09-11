@@ -38,6 +38,10 @@
         color: white;
         padding-inline: 8px;
       }
+
+      @media screen and (max-width: 1024px) {
+        display: none;
+      }
     }
     .profile-wrapper {
       display: flex;
@@ -104,7 +108,11 @@
   }
 }
 .content-wrapper {
-  margin: 40px;
+  margin: 24px;
+
+  @media screen and (max-width: 1024px) {
+    margin: 16px;
+  }
 
   @media screen and (max-width: 768px) {
     margin: 0;
@@ -122,6 +130,7 @@
 
     @media screen and (max-width: 768px) {
       overflow: hidden;
+      border-radius: 0;
     }
   }
 }

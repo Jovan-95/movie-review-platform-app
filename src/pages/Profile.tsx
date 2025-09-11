@@ -148,7 +148,7 @@ function Profile() {
           <span className="detail-value">{currentUser?.username}</span>
         </div>
         <div className="detail-item">
-          <span className="detail-label">Joined:</span>
+          <span className="detail-label">Role:</span>
           <span className="detail-value">{currentUser?.role}</span>
         </div>
       </div>

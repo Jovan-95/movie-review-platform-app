@@ -1,11 +1,14 @@
 .create-blog-page {
   max-width: 700px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 24px;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
+  @media screen and (max-width: 1024px) {
+    padding: 16px;
+    margin-top: 0;
+  }
   .page-title {
     text-align: center;
     font-size: 2rem;

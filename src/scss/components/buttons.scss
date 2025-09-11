@@ -20,3 +20,14 @@
 .btn--primary:hover {
   background: #1b3c76;
 }
+
+.btn--reject {
+  background: #c61616;
+  transition: 0.2s;
+  span {
+    color: white;
+  }
+}
+.btn--reject:hover {
+  background: #851616;
+}

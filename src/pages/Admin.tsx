@@ -3,12 +3,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   changeBlogStatus,
   changeUserStatus,
+  deleteUser,
   getBlogs,
   getUsers,
 } from "../services";
 import type { Blog, User } from "../types";
 import { useState } from "react";
 import Modal from "../components/Modal";
+import { showErrorToast, showSuccessToast } from "../components/Toast";
 
 function Admin() {
   const [modal, setModal] = useState<boolean>(false);
@@ -64,6 +66,19 @@ function Admin() {
     },
   });
 
+  // Delete HTTP method calling
+  const deleteUserMutation = useMutation({
+    mutationFn: deleteUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      showSuccessToast("User deleted successfully!");
+      setModal(false);
+    },
+    onError: () => {
+      showErrorToast("Failed to delete user!");
+    },
+  });
+
   function handleOpenModal(user: User) {
     setModal((prev) => !prev);
     setTargetUser(user);
@@ -95,6 +110,11 @@ function Admin() {
     });
   }
 
+  // Delete User
+  function handleDeleteUser() {
+    deleteUserMutation.mutate(targetUser?.id);
+  }
+
   // Blogs
   function handlePublishingBlog(blogId: string) {
     blogStatusChangingMutation({
@@ -122,91 +142,96 @@ function Admin() {
 
         <section className="admin-section">
           <h2 className="section-title">Users</h2>
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user: User) => (
-                <tr key={user.id}>
-                  <td>#{user.id}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-
-                  <td>
-                    <span className={`badge ${user.status}`}>
-                      {user.status}
-                    </span>
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => handleOpenModal(user)}
-                      className="btn btn--primary"
-                    >
-                      <span>Actions</span>
-                    </button>
-                  </td>
+          <div className="table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.map((user: User) => (
+                  <tr key={user?.id}>
+                    <td>#{user?.id}</td>
+                    <td>{user?.email}</td>
+                    <td>{user?.role}</td>
+
+                    <td>
+                      <span className={`badge ${user.status}`}>
+                        {user.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleOpenModal(user)}
+                        className="btn btn--primary"
+                      >
+                        <span>Actions</span>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         {/* -------- Blogs -------- */}
         <section className="admin-section">
           <h2 className="section-title">Blog Posts</h2>
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Author</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {blogs.map((blog: Blog) => {
-                // Find author by id
-                const author = users.find(
-                  (user: User) => user.id === blog.authorId
-                );
 
-                return (
-                  <tr key={blog.id}>
-                    <td>#{blog.id}</td>
-                    <td>{author.username}</td>
-                    <td>{blog.title}</td>
-                    <td>
-                      <span className={`badge ${blog.status}`}>
-                        {blog.status}
-                      </span>
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => handlePublishingBlog(blog.id)}
-                        className="btn approve"
-                      >
-                        Publish
-                      </button>
-                      <button
-                        onClick={() => handleRejectingBlog(blog.id)}
-                        className="btn reject"
-                      >
-                        Reject
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className="table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Author</th>
+                  <th>Title</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {blogs.map((blog: Blog) => {
+                  // Find author by id
+                  const author = users.find(
+                    (user: User) => user.id === blog.authorId
+                  );
+
+                  return (
+                    <tr key={blog?.id}>
+                      <td>#{blog?.id}</td>
+                      <td>{author?.username}</td>
+                      <td>{blog?.title}</td>
+                      <td>
+                        <span className={`badge ${blog.status}`}>
+                          {blog.status}
+                        </span>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => handlePublishingBlog(blog.id)}
+                          className="btn approve"
+                        >
+                          Publish
+                        </button>
+                        <button
+                          onClick={() => handleRejectingBlog(blog.id)}
+                          className="btn reject"
+                        >
+                          Reject
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
 
@@ -223,7 +248,7 @@ function Admin() {
             <div className="action-modal__title">
               Choose what you want to do with <b>{targetUser?.username}?</b>
             </div>
-            <div className="action-modal__buttons">
+            <div style={{ flexWrap: "wrap" }} className="action-modal__buttons">
               <button onClick={approveUser} className="btn btn--approve">
                 Approve
               </button>
@@ -232,6 +257,12 @@ function Admin() {
               </button>
               <button onClick={banUser} className="btn btn--ban">
                 Ban
+              </button>
+              <button
+                onClick={() => handleDeleteUser()}
+                className="btn btn--reject mt-16"
+              >
+                Delete
               </button>
             </div>
           </div>

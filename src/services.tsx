@@ -89,6 +89,28 @@ export async function changeUserStatus(
   return response.json();
 }
 
+// Delete HTTP method
+export async function deleteUser(userId: string | number) {
+  try {
+    const res = await fetch(`${localhostUrl}/users/${userId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status}, ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log(data);
+
+    return data;
+  } catch (err) {
+    throw new Error("Failed to delete user: " + err);
+  }
+}
+
 //// Movies
 // Get HTTP method. I am using real API for movies, not db.json
 export async function getPopularMovies() {
