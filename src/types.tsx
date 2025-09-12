@@ -37,7 +37,7 @@ export type Movie = {
 export type Review = {
   id: number;
   movieId: number;
-  userId: number;
+  userId: string;
   rating: number;
   content: string;
   date: string;

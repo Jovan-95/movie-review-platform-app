@@ -30,7 +30,12 @@ function Sidebar() {
     <>
       <div className="sidebar">
         <div className="sidebar-logo-wrapper">
-          <div className="sidebar-logo-text">MOVIE REVIEW APP</div>
+          <div className="sidebar-logo-text">
+            <img
+              onClick={() => navigate("/")}
+              src="./src/assets/images/movie-logo.png"
+            />
+          </div>
         </div>
         <div className="sidebar-nav-wrapper">
           {/* <div className="sidebar-item">

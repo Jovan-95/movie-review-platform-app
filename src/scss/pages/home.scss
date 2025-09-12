@@ -92,6 +92,11 @@
       font-size: 0.9rem;
       color: #666;
     }
+    p {
+      white-space: nowrap; /* Prevents text from wrapping to the next line */
+      overflow: hidden; /* Hides any overflowing content */
+      text-overflow: ellipsis;
+    }
   }
 
   .review {

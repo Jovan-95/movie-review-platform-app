@@ -3,11 +3,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   changeBlogStatus,
   changeUserStatus,
+  deleteBlog,
+  deleteComment,
+  deleteReview,
   deleteUser,
   getBlogs,
+  getComments,
+  getReviews,
   getUsers,
 } from "../services";
-import type { Blog, User } from "../types";
+import type { Blog, Review, User } from "../types";
 import { useState } from "react";
 import Modal from "../components/Modal";
 import { showErrorToast, showSuccessToast } from "../components/Toast";
@@ -35,6 +40,26 @@ function Admin() {
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: getBlogs,
+  });
+
+  // Getting comments
+  const {
+    data: comments,
+    isLoading: commentIsLoading,
+    error: commentError,
+  } = useQuery({
+    queryKey: ["comments"],
+    queryFn: getComments,
+  });
+
+  // Getting reviews
+  const {
+    data: reviews,
+    isLoading: reviewsIsLoading,
+    error: reviewsError,
+  } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: getReviews,
   });
 
   // Patch HTTP method calling
@@ -79,6 +104,45 @@ function Admin() {
     },
   });
 
+  // Delete HTTP method calling
+  const deleteBlogMutation = useMutation({
+    mutationFn: deleteBlog,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      showSuccessToast("Blog deleted successfully!");
+      setModal(false);
+    },
+    onError: () => {
+      showErrorToast("Failed to delete blog!");
+    },
+  });
+
+  // Delete HTTP method calling
+  const deleteCommentMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+      showSuccessToast("Comment deleted successfully!");
+      setModal(false);
+    },
+    onError: () => {
+      showErrorToast("Failed to delete comment!");
+    },
+  });
+
+  // Delete HTTP method calling
+  const deleteReviewMutation = useMutation({
+    mutationFn: deleteReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      showSuccessToast("Review deleted successfully!");
+      setModal(false);
+    },
+    onError: () => {
+      showErrorToast("Failed to delete review!");
+    },
+  });
+
   function handleOpenModal(user: User) {
     setModal((prev) => !prev);
     setTargetUser(user);
@@ -116,12 +180,15 @@ function Admin() {
   }
 
   // Blogs
+  // Publish blog
   function handlePublishingBlog(blogId: string) {
     blogStatusChangingMutation({
       id: blogId,
       status: "published",
     });
   }
+
+  // Reject blog
   function handleRejectingBlog(blogId: string) {
     blogStatusChangingMutation({
       id: blogId,
@@ -129,12 +196,30 @@ function Admin() {
     });
   }
 
+  // Delete blog
+  function handleBlogDelete(blogId: string) {
+    deleteBlogMutation.mutate(blogId);
+  }
+
+  // Comments
+  function handleDeleteComment(commentId: string) {
+    console.log(commentId);
+    deleteCommentMutation.mutate(commentId);
+  }
+
+  // Reviews
+  function handleDeleteReview(reviewId: string) {
+    deleteReviewMutation.mutate(reviewId);
+  }
+
   // Prevent Error
   if (!Array.isArray(users)) return null;
 
-  if (usersIsLoading || blogsIsLoading) return <p>Loading...</p>;
-  if (usersError || blogsError) return <p>{usersError?.message}</p>;
-  if (!users || !blogs) return <p>No data found.</p>;
+  if (usersIsLoading || blogsIsLoading || commentIsLoading || reviewsIsLoading)
+    return <p>Loading...</p>;
+  if (usersError || blogsError || commentError || reviewsError)
+    return <p>{usersError?.message}</p>;
+  if (!users || !blogs || !comments || !reviews) return <p>No data found.</p>;
   return (
     <>
       <div className="admin-page">
@@ -142,6 +227,8 @@ function Admin() {
 
         <section className="admin-section">
           <h2 className="section-title">Users</h2>
+
+          {/* Users */}
           <div className="table-wrapper">
             <table className="admin-table">
               <thead>
@@ -224,6 +311,93 @@ function Admin() {
                           className="btn reject"
                         >
                           Reject
+                        </button>
+                        <button
+                          onClick={() => handleBlogDelete(blog.id)}
+                          className="btn reject"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Comments */}
+        <section className="admin-section">
+          <h2 className="section-title">Comments</h2>
+          <div className="table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Author</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comments.map((comment: Comment) => {
+                  const author = users.find(
+                    (user: User) => user.id === comment.userId
+                  );
+                  return (
+                    <tr key={comment?.id}>
+                      <td>#{comment?.id}</td>
+                      <td>{author?.username}</td>
+
+                      <td>
+                        <button
+                          onClick={() => handleDeleteComment(comment.id)}
+                          className="btn reject"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Reviews */}
+        <section className="admin-section">
+          <h2 className="section-title">Reviews</h2>
+          <div className="table-wrapper">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+
+                  <th>Author</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reviews.map((review: Review) => {
+                  const author = users.find(
+                    (user: User) => user.id === review.userId
+                  );
+
+                  const reviewTitle = review?.content.substring(0, 25);
+                  return (
+                    <tr key={review?.id}>
+                      <td>#{review?.id}</td>
+                      <td>{reviewTitle}</td>
+                      <td>{author?.username}</td>
+
+                      <td>
+                        <button
+                          onClick={() => handleDeleteReview(String(review?.id))}
+                          className="btn reject"
+                        >
+                          Delete
                         </button>
                       </td>
                     </tr>

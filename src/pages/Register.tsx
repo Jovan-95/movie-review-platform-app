@@ -83,7 +83,12 @@ function Register() {
   return (
     <div className="auth-wrapper">
       <div className="form-wrapper">
-        <div className="auth-logo">MOVIE REVIEW APP</div>
+        <div className="auth-logo">
+          <img
+            onClick={() => navigate("/")}
+            src="./src/assets/images/movie-logo.png"
+          />
+        </div>
         <div className="auth-heading">Register</div>
         <div className="input-wrapper">
           <label>Username</label>

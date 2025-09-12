@@ -160,6 +160,28 @@ export async function createReview(review: Review) {
   }
 }
 
+// Delete HTTP method
+export async function deleteReview(reviewId: string | number) {
+  try {
+    const res = await fetch(`${localhostUrl}/reviews/${reviewId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status}, ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log(data);
+
+    return data;
+  } catch (err) {
+    throw new Error("Failed to delete user: " + err);
+  }
+}
+
 //// Blogs
 // Get HTTP method
 export async function getBlogs() {
@@ -213,6 +235,28 @@ export async function changeBlogStatus(
   return response.json();
 }
 
+// Delete HTTP method
+export async function deleteBlog(blogId: string | number) {
+  try {
+    const res = await fetch(`${localhostUrl}/blogs/${blogId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status}, ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log(data);
+
+    return data;
+  } catch (err) {
+    throw new Error("Failed to delete user: " + err);
+  }
+}
+
 // Comments
 // Post HTTP method
 export async function postComment(comment: Comment) {
@@ -243,5 +287,27 @@ export async function getComments() {
     return data;
   } catch (err) {
     console.log(err);
+  }
+}
+
+// Delete HTTP method
+export async function deleteComment(commentId: string | number) {
+  try {
+    const res = await fetch(`${localhostUrl}/blogComments/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status}, ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log(data);
+
+    return data;
+  } catch (err) {
+    throw new Error("Failed to delete user: " + err);
   }
 }
