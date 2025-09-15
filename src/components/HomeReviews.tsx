@@ -27,7 +27,9 @@ function HomeReviews() {
         {reviews.slice(0, 5).map((review: Review) => (
           <div key={review.id} className="review">
             <p className="review__rating">⭐ {review.rating}</p>
-            <p className="review__text">{review.content}</p>
+            <p className="review__text truncate-single-line">
+              {review.content}
+            </p>
             {/* TODO Jovan, find author of the review with ID */}
             <p className="review__author">– {review.date}</p>
           </div>

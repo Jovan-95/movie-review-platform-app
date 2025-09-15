@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPopularMovies } from "../services";
 import type { Movie } from "../types";
 import { NavLink } from "react-router-dom";
+import MovieCard from "../components/MovieCard";
 
 function Movies() {
   // Getting movies
@@ -26,18 +27,7 @@ function Movies() {
         <div className="cards">
           {movies.results?.map((movie: Movie) => (
             <NavLink key={movie.id} to={`/movies/${movie.id}`}>
-              <div className="card">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                  alt="movie"
-                  className="card__img"
-                />
-                <h3 className="card__title">{movie.title}</h3>
-                <p>{movie.popularity}</p>
-                <p className="card__meta">
-                  {movie.release_date} · {movie.vote_average} ⭐
-                </p>
-              </div>
+              <MovieCard movie={movie} />
             </NavLink>
           ))}
         </div>

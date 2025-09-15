@@ -27,7 +27,9 @@ function HomeBlogs() {
           <NavLink key={blog.id} to={`/blog/${blog.id}`}>
             <div className="blog">
               <h3 className="blog__title">{blog.title}</h3>
-              <p className="blog__excerpt">{blog.content}</p>
+              <p className="blog__excerpt truncate-single-line">
+                {blog.content}
+              </p>
               {/* TODO Jovan, find author of the blog with ID */}
               <p className="blog__author">By {blog.authorId}</p>
             </div>

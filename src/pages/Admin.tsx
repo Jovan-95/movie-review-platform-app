@@ -16,11 +16,16 @@ import type { Blog, Review, User } from "../types";
 import { useState } from "react";
 import Modal from "../components/Modal";
 import { showErrorToast, showSuccessToast } from "../components/Toast";
+import { useSelector } from "react-redux";
+import type { RootState } from "../Redux/store";
 
 function Admin() {
   const [modal, setModal] = useState<boolean>(false);
   const [targetUser, setTargetUser] = useState({});
   const queryClient = useQueryClient();
+
+  // Get logged user from Redux
+  const user = useSelector((state: RootState) => state.auth.loggedInUser);
 
   // Get users
   const {
@@ -220,6 +225,7 @@ function Admin() {
   if (usersError || blogsError || commentError || reviewsError)
     return <p>{usersError?.message}</p>;
   if (!users || !blogs || !comments || !reviews) return <p>No data found.</p>;
+
   return (
     <>
       <div className="admin-page">
@@ -423,21 +429,28 @@ function Admin() {
               Choose what you want to do with <b>{targetUser?.username}?</b>
             </div>
             <div style={{ flexWrap: "wrap" }} className="action-modal__buttons">
-              <button onClick={approveUser} className="btn btn--approve">
-                Approve
-              </button>
-              <button onClick={rejectUser} className="btn btn--reject">
-                Reject
-              </button>
-              <button onClick={banUser} className="btn btn--ban">
-                Ban
-              </button>
-              <button
-                onClick={() => handleDeleteUser()}
-                className="btn btn--reject mt-16"
-              >
-                Delete
-              </button>
+              {targetUser.id === user.id ? (
+                <p>This is your account!</p>
+              ) : (
+                <>
+                  {" "}
+                  <button onClick={approveUser} className="btn btn--approve">
+                    Approve
+                  </button>
+                  <button onClick={rejectUser} className="btn btn--reject">
+                    Reject
+                  </button>
+                  <button onClick={banUser} className="btn btn--ban">
+                    Ban
+                  </button>
+                  <button
+                    onClick={() => handleDeleteUser()}
+                    className="btn btn--reject mt-16"
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </Modal>

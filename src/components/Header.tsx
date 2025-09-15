@@ -107,6 +107,34 @@ function Header() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          {/* dp showing search results when typing starts */}
+          {searchQuery && (
+            <div className="search-results">
+              <div
+                onClick={() => setSearchQuery("")}
+                style={{
+                  display: "flex",
+                  justifyContent: "end",
+                  cursor: "pointer",
+                }}
+              >
+                X
+              </div>
+              {results.length === 0 ? (
+                <div>No results found</div>
+              ) : (
+                results.map((item) => (
+                  <NavLink key={item.id} to={`/${item.type}/${item.id}`}>
+                    {" "}
+                    <div key={item.id} className="search-result">
+                      <strong>{item.type.toUpperCase()}:</strong>{" "}
+                      {item.title || item.username}
+                    </div>
+                  </NavLink>
+                ))
+              )}
+            </div>
+          )}
         </div>
         <div className="time-wrapper">
           <div className="time">{formattedDate}</div>
@@ -250,34 +278,6 @@ function Header() {
           </div>
         </Modal>
       </div>
-      {/* Modal showing search results when typing starts */}
-      {searchQuery && (
-        <Modal>
-          {" "}
-          <div className="search-results">
-            <div
-              onClick={() => setSearchQuery("")}
-              style={{
-                display: "flex",
-                justifyContent: "end",
-                cursor: "pointer",
-              }}
-            >
-              X
-            </div>
-            {results.length === 0 ? (
-              <div>No results found</div>
-            ) : (
-              results.map((item) => (
-                <div key={item.id} className="search-result">
-                  <strong>{item.type.toUpperCase()}:</strong>{" "}
-                  {item.title || item.username}
-                </div>
-              ))
-            )}
-          </div>
-        </Modal>
-      )}
     </div>
   );
 }

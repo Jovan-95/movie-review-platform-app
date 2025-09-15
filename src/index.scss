@@ -113,3 +113,9 @@ a {
 .max-w-400 {
   max-width: 400px;
 }
+
+.truncate-single-line {
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+  overflow: hidden; /* Hides any content that overflows the element's box */
+  text-overflow: ellipsis; /* Displays an ellipsis (...) to indicate truncated text */
+}

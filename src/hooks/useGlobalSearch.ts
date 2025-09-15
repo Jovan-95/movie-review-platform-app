@@ -52,7 +52,7 @@ function useGlobalSearch(query: string) {
 
   return [
     ...userResults.map((u: User) => ({ type: "user", ...u })),
-    ...movieResults.map((m: Movie) => ({ type: "movie", ...m })),
+    ...movieResults.map((m: Movie) => ({ type: "movies", ...m })),
     ...blogResults.map((b: Blog) => ({ type: "blog", ...b })),
     ...reviewResults.map((r: Review) => ({ type: "review", ...r })),
   ];

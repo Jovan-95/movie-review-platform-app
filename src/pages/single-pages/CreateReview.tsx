@@ -62,7 +62,7 @@ function CreateReview() {
 
     // New review creating
     const newReview: Review = {
-      id: Date.now(),
+      id: String(Date.now()),
       movieId: Number(id),
       userId: currentUser.id,
       rating: Number(reviewObj.rating),
@@ -109,7 +109,7 @@ function CreateReview() {
           value={reviewObj.content}
           id="comment"
           name="comment"
-          rows="5"
+          rows={5}
           required
           className="review-form__textarea"
         ></textarea>

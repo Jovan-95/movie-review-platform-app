@@ -105,6 +105,8 @@
     border-left: 5px solid #2a5298;
     border-radius: 0.5rem;
     box-shadow: 11px 10px 8px -15px;
+    height: 220px;
+
     &__rating {
       font-weight: bold;
       color: #2a5298;
@@ -125,7 +127,7 @@
     background: #f1f1f1;
     padding: 1rem;
     border-radius: 0.5rem;
-
+    height: 220px;
     &__title {
       font-weight: bold;
       margin-bottom: 0.5rem;
