@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../Redux/slice";
 import { showErrorToast, showSuccessToast } from "../components/Toast";
+import UploadFile from "../components/UploadFile";
 
 function Profile() {
   const [modal, setModal] = useState<boolean>(false);
@@ -19,9 +20,6 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  // NEW - state za upload slike
-  const [profileImage, setProfileImage] = useState<string>(""); // NEW
 
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -47,7 +45,7 @@ function Profile() {
       editedObj: Partial<User>; // Use Partial<User> for type safety
     }) => editUser(userId, editedObj),
     onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
 
@@ -75,19 +73,6 @@ function Profile() {
     setEmail(currentUser.email);
     setPassword(currentUser.password); // Assuming you store plain text (in real apps, don't)
     setConfirmPassword(currentUser.password);
-    setProfileImage(currentUser.profileImage || ""); // NEW
-  }
-
-  // NEW - funkcija za konvertovanje slike u Base64
-  function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProfileImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
   }
 
   // Submit EDITED obj
@@ -106,7 +91,6 @@ function Profile() {
       username,
       email,
       password,
-      profileImage,
     };
 
     editUserFormFields({ userId: String(currentUser.id), editedObj });
@@ -137,6 +121,11 @@ function Profile() {
           <p className="profile-role">{currentUser?.role}</p>
         </div>
       </div>
+
+      <UploadFile
+        currentUser={currentUser}
+        editUserFormFields={editUserFormFields}
+      />
 
       <div className="profile-details">
         <div className="detail-item">
@@ -172,25 +161,6 @@ function Profile() {
             X
           </div>
           <form onSubmit={handleSubmit} className="auth-form">
-            <div className="form-group">
-              <label className="form-label">Profile Image</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
-              {profileImage && (
-                <img
-                  src={profileImage}
-                  alt="Preview"
-                  style={{
-                    width: "100px",
-                    marginTop: "10px",
-                    borderRadius: "8px",
-                  }}
-                />
-              )}
-            </div>
             <div className="form-group">
               <label className="form-label">Username</label>
               <input

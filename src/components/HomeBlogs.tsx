@@ -23,7 +23,7 @@ function HomeBlogs() {
     <section className="section blogs-preview">
       <h2 className="section__title">Latest Blog Posts</h2>
       <div className="blogs">
-        {blogs.map((blog: Blog) => (
+        {blogs?.map((blog: Blog) => (
           <NavLink key={blog.id} to={`/blog/${blog.id}`}>
             <div className="blog">
               <h3 className="blog__title">{blog.title}</h3>

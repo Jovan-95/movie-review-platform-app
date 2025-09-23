@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getUsers } from "../services"; // tvoja fetch funkcija
+import type { User } from "../types";
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const data = await getUsers();
@@ -7,7 +8,7 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
 });
 
 interface UsersState {
-  users: any[];
+  users: User[];
   loading: boolean;
   error: string | null;
 }

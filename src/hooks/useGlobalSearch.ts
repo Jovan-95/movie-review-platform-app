@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
-import { getBlogs, getPopularMovies, getReviews } from "../services";
-import { useSelector } from "react-redux";
-import type { RootState } from "../Redux/store";
+import { getBlogs, getPopularMovies, getReviews, getUsers } from "../services";
 import type { Blog, Movie, Review, User } from "../types";
 
 function useGlobalSearch(query: string) {
-  // Users are loaded from redux
-  const { users } = useSelector((state: RootState) => state.users);
+  // Getting movies
+  const { data: users } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
 
   // Getting movies
   const { data: movies } = useQuery({
@@ -28,6 +29,12 @@ function useGlobalSearch(query: string) {
   });
 
   if (!query) return [];
+
+  // Error handling
+  if (!users) return "No users";
+  if (!movies) return "No movies";
+  if (!reviews) return "No reviews";
+  if (!blogs) return "No blogs";
 
   const q = query.toLowerCase();
 

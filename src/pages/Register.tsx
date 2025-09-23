@@ -23,7 +23,7 @@ function Register() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
-    onError: (err) => {
+    onError: () => {
       showErrorToast("Registration failed!");
     },
   });
@@ -59,12 +59,12 @@ function Register() {
 
     // User for sending
     const newUser: User = {
-      id: Date.now().toString(),
       username: userObj.username,
       email: userObj.email,
       password: userObj.password,
       role: "user",
       status: "pending",
+      profileImage: "",
     };
 
     // Add user

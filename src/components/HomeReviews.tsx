@@ -24,7 +24,7 @@ function HomeReviews() {
     <section className="section reviews-preview">
       <h2 className="section__title">Top Reviews</h2>
       <div className="reviews">
-        {reviews.slice(0, 5).map((review: Review) => (
+        {reviews?.slice(0, 5).map((review: Review) => (
           <div key={review.id} className="review">
             <p className="review__rating">⭐ {review.rating}</p>
             <p className="review__text truncate-single-line">

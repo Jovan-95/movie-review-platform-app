@@ -33,7 +33,7 @@ function Review() {
       <section className="section movies-preview">
         <h2 className="section__title">Reviews</h2>
         <div className="cards">
-          {reviews.map((review: Review) => {
+          {reviews?.map((review: Review) => {
             /* // Find matching movie for review */
             const movie = movies.results?.find(
               (m: Movie) => m.id === review.movieId

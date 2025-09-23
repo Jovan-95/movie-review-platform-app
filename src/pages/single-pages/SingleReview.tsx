@@ -47,9 +47,7 @@ function SingleReview() {
   if (!reviews || !movies || !users) return <p>No data found.</p>;
 
   // Single review
-  const singleReview = reviews.find(
-    (review: Review) => Number(review.id) === Number(id)
-  );
+  const singleReview = reviews.find((review: Review) => review.id === id);
 
   // Prevent Error
   if (!Array.isArray(movies.results)) return null;
@@ -59,12 +57,12 @@ function SingleReview() {
 
   // Finding movie for this review
   const movie = movies.results.find(
-    (m: Movie) => m.id === singleReview.movieId
+    (m: Movie) => m.id === singleReview?.movieId
   );
 
   // Find review author
   const reviewAuthor = users.find(
-    (user: User) => user.id === singleReview.userId
+    (user: User) => user.id === singleReview?.userId
   );
   return (
     <>
@@ -76,21 +74,21 @@ function SingleReview() {
 
         <div className="single-movie__content-movie">
           <div className="single-movie__info">
-            <h2>Movie: {movie.title}</h2>
+            <h2>Movie: {movie?.title}</h2>
             <p className="single-movie__rating">
-              Rating: ⭐ {singleReview.rating} / 10
+              Rating: ⭐ {singleReview?.rating} / 10
             </p>
 
             <p className="single-movie__description">
-              Review: {singleReview.content}
+              Review: {singleReview?.content}
             </p>
 
             <p className="single-movie__description">
-              Author: {reviewAuthor.username}
+              Author: {reviewAuthor?.username}
             </p>
             <p className="single-movie__meta">
               <span className="single-movie__year">
-                Date: {singleReview.date}
+                Date: {singleReview?.date}
               </span>
             </p>
             <button

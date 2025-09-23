@@ -1,117 +1,180 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// http://localhost:3001/users
-// http://localhost:3001/movies, umesto ovoga koristim pravi API dole
-// http://localhost:3001/reviews
-// http://localhost:3001/blogs
-// http://localhost:3001/blogComments
-
-// Local url
-const localhostUrl = "http://localhost:3001";
-
 // Real movies API
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
+import { supabase } from "./supabaseClient";
 import type { Blog, Comment, Review, User } from "./types";
 
 //// Users
-// Post HTTP method
+// Create user
 export async function registerUser(user: User) {
-  try {
-    const res = await fetch(`${localhostUrl}/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
+  const { data, error } = await supabase.from("users").insert([user]);
+  if (error) throw error;
+  return data;
 }
 
-// Get HTTP method
+// Get all users
 export async function getUsers() {
-  try {
-    const res = await fetch(`${localhostUrl}/users`);
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
+  const { data, error } = await supabase.from("users").select("*");
+  if (error) throw error;
+  return data;
 }
 
-//// Patch HTTP method Edit user
+// Edit user
 export async function editUser(userId: string, editedObj: Partial<User>) {
-  try {
-    const res = await fetch(`${localhostUrl}/users/${userId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editedObj),
-    });
-    if (!res.ok) {
-      throw new Error(`${res.status}, ${res.statusText}`);
-    }
-    const data = await res.json();
-    console.log("PATCH response:", data); // ✅ keep this console log
-    return data;
-  } catch (err) {
-    console.error("PATCH error:", err);
-    throw err;
-  }
+  const { data, error } = await supabase
+    .from("users")
+    .update(editedObj)
+    .eq("id", userId);
+  if (error) throw error;
+  return data;
 }
 
-//// Patch HTTP method change user status (ban, unban, reject)
+// Change user status
 export async function changeUserStatus(
-  userId: string | number,
+  userId: string,
   status: "active" | "rejected" | "banned"
 ) {
-  const response = await fetch(`${localhostUrl}/users/${userId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ status }),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to update user status");
-  }
-
-  return response.json();
+  const { data, error } = await supabase
+    .from("users")
+    .update({ status })
+    .eq("id", userId);
+  if (error) throw error;
+  return data;
 }
 
-// Delete HTTP method
-export async function deleteUser(userId: string | number) {
-  try {
-    const res = await fetch(`${localhostUrl}/users/${userId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+// Delete user
+export async function deleteUser(userId: string) {
+  const { data, error } = await supabase
+    .from("users")
+    .delete()
+    .eq("id", userId);
+  if (error) throw error;
+  return data;
+}
+
+// Upload avatar
+export async function uploadAvatar(
+  file: File,
+  userId: string
+): Promise<string> {
+  if (!file) throw new Error("No file provided");
+  if (!userId) throw new Error("No userId provided");
+
+  const ext = file.name.split(".").pop();
+  const baseName = file.name.split(".")[0].replace(/\W/g, "_");
+  const fileName = `${Date.now()}_${baseName}.${ext}`;
+  const filePath = `${userId}/${fileName}`;
+
+  // Upload u bucket
+  const { error } = await supabase.storage
+    .from("avatars")
+    .upload(filePath, file, {
+      upsert: true,
+      contentType: file.type,
     });
-    if (!res.ok) {
-      throw new Error(`${res.status}, ${res.statusText}`);
-    }
-    const data = await res.json();
-    console.log(data);
 
-    return data;
-  } catch (err) {
-    throw new Error("Failed to delete user: " + err);
-  }
+  if (error) throw error;
+
+  // Public URL
+  const { data: publicData } = supabase.storage
+    .from("avatars")
+    .getPublicUrl(filePath);
+  if (!publicData?.publicUrl) throw new Error("Failed to get public URL");
+
+  return publicData.publicUrl;
 }
 
-//// Movies
+//// Reviews
+// Get all reviews
+export async function getReviews() {
+  const { data, error } = await supabase.from("reviews").select("*");
+  if (error) throw error;
+  return data;
+}
+
+// Create review
+export async function createReview(review: Review) {
+  const { data, error } = await supabase.from("reviews").insert([review]);
+  if (error) throw error;
+  return data;
+}
+
+// Delete review
+export async function deleteReview(reviewId: string) {
+  const { data, error } = await supabase
+    .from("reviews")
+    .delete()
+    .eq("id", reviewId);
+  if (error) throw error;
+  return data;
+}
+
+//// Blogs
+// Get all blogs
+export async function getBlogs() {
+  const { data, error } = await supabase.from("blogs").select("*");
+  if (error) throw error;
+  return data;
+}
+
+// Post a blog
+export async function postBlog(blog: Blog) {
+  const { data, error } = await supabase.from("blogs").insert([blog]);
+  if (error) throw error;
+  return data;
+}
+
+// Change blog status
+export async function changeBlogStatus(
+  blogId: string,
+  status: "published" | "rejected"
+) {
+  const { data, error } = await supabase
+    .from("blogs")
+    .update({ status })
+    .eq("id", blogId);
+  if (error) throw error;
+  return data;
+}
+
+// Delete blog
+export async function deleteBlog(blogId: string) {
+  const { data, error } = await supabase
+    .from("blogs")
+    .delete()
+    .eq("id", blogId);
+  if (error) throw error;
+  return data;
+}
+
+// Comments
+// Get comments
+export async function getComments() {
+  const { data, error } = await supabase.from("blogComments").select("*");
+  if (error) throw error;
+  return data;
+}
+
+// Post comment
+export async function postComment(comment: Comment) {
+  const { data, error } = await supabase.from("blogComments").insert([comment]);
+  if (error) throw error;
+  return data;
+}
+
+// Delete comment
+export async function deleteComment(commentId: string) {
+  const { data, error } = await supabase
+    .from("blogComments")
+    .delete()
+    .eq("id", commentId);
+  if (error) throw error;
+  return data;
+}
+
+/////////////////////////////////// Movies
 // Get HTTP method. I am using real API for movies, not db.json
 export async function getPopularMovies() {
   try {
@@ -124,190 +187,5 @@ export async function getPopularMovies() {
     return data;
   } catch (err) {
     console.log(err);
-  }
-}
-
-//// Reviews
-// Get HTTP method
-export async function getReviews() {
-  try {
-    const res = await fetch(`${localhostUrl}/reviews`);
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-// Post HTTP method
-export async function createReview(review: Review) {
-  try {
-    const res = await fetch(`${localhostUrl}/reviews`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(review),
-    });
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-// Delete HTTP method
-export async function deleteReview(reviewId: string | number) {
-  try {
-    const res = await fetch(`${localhostUrl}/reviews/${reviewId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    if (!res.ok) {
-      throw new Error(`${res.status}, ${res.statusText}`);
-    }
-    const data = await res.json();
-    console.log(data);
-
-    return data;
-  } catch (err) {
-    throw new Error("Failed to delete user: " + err);
-  }
-}
-
-//// Blogs
-// Get HTTP method
-export async function getBlogs() {
-  try {
-    const res = await fetch(`${localhostUrl}/blogs`);
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-// Post HTTP method
-export async function postBlog(blog: Blog) {
-  try {
-    const res = await fetch(`${localhostUrl}/blogs`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(blog),
-    });
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-//// Patch HTTP method change blog status (publish, reject)
-export async function changeBlogStatus(
-  blogId: string | number,
-  status: "published" | "rejected"
-) {
-  const response = await fetch(`${localhostUrl}/blogs/${blogId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ status }),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to update user status");
-  }
-
-  return response.json();
-}
-
-// Delete HTTP method
-export async function deleteBlog(blogId: string | number) {
-  try {
-    const res = await fetch(`${localhostUrl}/blogs/${blogId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    if (!res.ok) {
-      throw new Error(`${res.status}, ${res.statusText}`);
-    }
-    const data = await res.json();
-    console.log(data);
-
-    return data;
-  } catch (err) {
-    throw new Error("Failed to delete user: " + err);
-  }
-}
-
-// Comments
-// Post HTTP method
-export async function postComment(comment: Comment) {
-  try {
-    const res = await fetch(`${localhostUrl}/blogComments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(comment),
-    });
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-// Get HTTP method
-export async function getComments() {
-  try {
-    const res = await fetch(`${localhostUrl}/blogComments`);
-    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
-    const data = await res.json();
-    // console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-// Delete HTTP method
-export async function deleteComment(commentId: string | number) {
-  try {
-    const res = await fetch(`${localhostUrl}/blogComments/${commentId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    if (!res.ok) {
-      throw new Error(`${res.status}, ${res.statusText}`);
-    }
-    const data = await res.json();
-    console.log(data);
-
-    return data;
-  } catch (err) {
-    throw new Error("Failed to delete user: " + err);
   }
 }

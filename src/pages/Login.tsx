@@ -2,33 +2,45 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { LoginFormUser, User } from "../types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addLoggedUser } from "../Redux/slice";
-import type { RootState } from "../Redux/store";
 import {
   showErrorToast,
   showInfoToast,
   showSuccessToast,
 } from "../components/Toast";
+import { useQuery } from "@tanstack/react-query";
+import { getUsers } from "../services";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Users are called from redux, because they are needed on every page
-  const { users, loading } = useSelector((state: RootState) => state.users);
+  // Get users
+  const {
+    data: users,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
 
   const [loginUserObj, setLoginUserObj] = useState<LoginFormUser>({
     email: "",
     password: "",
   });
 
+  if (usersIsLoading) return <p>Loading...</p>;
+  if (usersError) return <p>{usersError?.message}</p>;
+  if (!users) return <p>No data found.</p>;
+
   // Login
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
 
     // Comparing login credentials with registered users
-    const user = users.find(
+    const user = users?.find(
       (user: User) =>
         user.email === loginUserObj.email &&
         user.password === loginUserObj.password

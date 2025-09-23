@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { User } from "../types";
 
 type AuthState = {
-  loggedInUser: null;
+  loggedInUser: User | null; // <--- ovde dodaj User | null
 };
 
 const initialState: AuthState = {

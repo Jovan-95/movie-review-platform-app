@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../Redux/store";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getBlogs, getPopularMovies, getReviews } from "../services";
+import { getBlogs, getPopularMovies, getReviews, getUsers } from "../services";
 import useGlobalSearch from "../hooks/useGlobalSearch";
 import Notifications from "./Notifications";
 import type { User } from "../types";
@@ -20,18 +20,13 @@ function Header() {
   // Mobile modal
   const [mobModal, setMobModal] = useState(false);
 
-  // Users are loaded from redux
-  const { users } = useSelector((state: RootState) => state.users);
   const [searchQuery, setSearchQuery] = useState("");
   const results = useGlobalSearch(searchQuery);
+  console.log(results);
 
   function showNotificationsModal() {
     setNotificationsModal((prev) => !prev);
   }
-
-  // Get logged user from Redux
-  const user = useSelector((state: RootState) => state.auth.loggedInUser);
-  // console.log("Header user", user);
 
   const date = new Date();
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -43,6 +38,16 @@ function Header() {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
+  });
+
+  // Get users
+  const {
+    data: users,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
   });
 
   // Getting movies
@@ -75,20 +80,24 @@ function Header() {
     queryFn: getBlogs,
   });
 
+  // Get logged user from Redux
+  const user = useSelector((state: RootState) => state.auth.loggedInUser);
+  // console.log("Header user", user);
+
+  const currentUser = users?.find(
+    (foundUser: User) => foundUser.id === user?.id
+  );
+
   // Error handling
-  if (moviesIsLoading || reviewsIsLoading || blogsIsLoading)
+  if (moviesIsLoading || reviewsIsLoading || blogsIsLoading || usersIsLoading)
     <div>{users ? users.length : "..."}</div>;
-  if (moviesError || reviewsError || blogsError)
+  if (moviesError || reviewsError || blogsError || usersError)
     return <p>{reviewsError?.message}</p>;
 
   // console.log(movies.results);
   // console.log(blogs);
   // console.log(users);
   // console.log(reviews);
-
-  const currentUser = users.find(
-    (foundUser: User) => String(foundUser.id) === String(user?.id)
-  );
 
   function handleMobileNavModal() {
     setMobModal((prev) => !prev);
@@ -123,6 +132,7 @@ function Header() {
               {results.length === 0 ? (
                 <div>No results found</div>
               ) : (
+                Array.isArray(results) &&
                 results.map((item) => (
                   <NavLink key={item.id} to={`/${item.type}/${item.id}`}>
                     {" "}

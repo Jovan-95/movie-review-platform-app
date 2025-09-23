@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { getComments, postComment } from "../services";
-import { showErrorToast } from "./Toast";
+import { showErrorToast, showSuccessToast } from "./Toast";
 import type { Blog, Comment, User } from "../types";
 
-function Comment({
+function CommentComp({
   users,
   singleBlog,
   currentUser,
@@ -31,20 +31,22 @@ function Comment({
     mutationFn: postComment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogComments"] });
+      showSuccessToast("Comment posted!");
     },
     onError: () => {
-      showErrorToast("Registration failed!");
+      showErrorToast("Comment posting failed!");
     },
   });
 
   // Error handling
   //   if (!loggedUser) return <p>User now found!</p>;
+  if (!comments) return <p>Loading...</p>;
   if (commentsIsLoading) return <p>Loading...</p>;
   if (commentsError) return <p>{commentsError?.message}</p>;
 
   // Find comments for specific blog by comparing ID
   const filteredComments = comments.filter(
-    (comment: Comment) => Number(comment?.blogId) === Number(singleBlog.id)
+    (comment: Comment) => comment?.blogId === singleBlog.id
   );
 
   // Sorted comments
@@ -58,11 +60,10 @@ function Comment({
     }
 
     const newComment: Comment = {
-      id: Date.now(),
-      blogId: singleBlog.id,
-      userId: currentUser.id,
+      blogId: String(singleBlog.id),
+      userId: currentUser?.id || "",
       comment: commentObj.comment,
-      date: Date.now(),
+      date: new Date().toISOString(),
     };
     // console.log("comment", newComment);
 
@@ -104,7 +105,7 @@ function Comment({
           {sortedComments.map((comment: Comment) => {
             // Find author by id
             const author = users.find(
-              (user: User) => String(user.id) === String(comment.userId)
+              (user: User) => user.id === comment.userId
             );
 
             return (
@@ -123,4 +124,4 @@ function Comment({
   );
 }
 
-export default Comment;
+export default CommentComp;

@@ -19,9 +19,10 @@ function CreateReview() {
     mutationFn: createReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      showSuccessToast("Review is submitted");
     },
     onError: () => {
-      showErrorToast("Registration failed!");
+      showErrorToast("Create review failed!");
     },
   });
 
@@ -48,8 +49,8 @@ function CreateReview() {
   if (!Array.isArray(users)) return null;
 
   const currentUser = users.find((user: User) => user.id === loggedUser?.id);
-
-  function handleSubmitReview(e) {
+  // console.log(currentUser);
+  function handleSubmitReview(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     // console.log("movie id", id);
     // console.log("current user", currentUser);
@@ -62,7 +63,6 @@ function CreateReview() {
 
     // New review creating
     const newReview: Review = {
-      id: String(Date.now()),
       movieId: Number(id),
       userId: currentUser.id,
       rating: Number(reviewObj.rating),
@@ -72,7 +72,6 @@ function CreateReview() {
 
     createReviewMut.mutate(newReview);
     setReviewObj({ rating: "", content: "" });
-    showSuccessToast("Review is submitted");
   }
 
   return (

@@ -54,7 +54,7 @@ function SingleMovie() {
   //   console.log("single movie :", singleMovie);
 
   // Find review for single movie
-  const filteredReviews = reviews.filter(
+  const filteredReviews = reviews?.filter(
     (review: Review) => review.movieId === singleMovie.id
   );
 
@@ -108,7 +108,7 @@ function SingleMovie() {
           <div className="reviews-list">
             <h2 className="reviews-title">Reviews</h2>
             {/* List all reviews for this Movie */}
-            {filteredReviews.map((review: Review) => {
+            {filteredReviews?.map((review: Review) => {
               // Find author by id
               const author = users.find(
                 (user: User) => user.id === review.userId

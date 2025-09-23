@@ -21,7 +21,7 @@ function Blog() {
   if (blogsError) return <p>{blogsError?.message}</p>;
 
   // Show only published blogs (approved by admin)
-  const publishedBlogs = blogs.filter(
+  const publishedBlogs = blogs?.filter(
     (blog: Blog) => blog.status === "published"
   );
   return (
@@ -44,7 +44,7 @@ function Blog() {
           </button>
         </div>
         <div className="cards">
-          {publishedBlogs.map((blog: Blog) => (
+          {publishedBlogs?.map((blog: Blog) => (
             <NavLink key={blog.id} to={`/blog/${blog.id}`}>
               <div className="card">
                 {/* <img

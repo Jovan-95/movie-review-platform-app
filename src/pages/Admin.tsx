@@ -12,7 +12,7 @@ import {
   getReviews,
   getUsers,
 } from "../services";
-import type { Blog, Review, User } from "../types";
+import type { Blog, Comment, Review, User } from "../types";
 import { useState } from "react";
 import Modal from "../components/Modal";
 import { showErrorToast, showSuccessToast } from "../components/Toast";
@@ -21,7 +21,7 @@ import type { RootState } from "../Redux/store";
 
 function Admin() {
   const [modal, setModal] = useState<boolean>(false);
-  const [targetUser, setTargetUser] = useState({});
+  const [targetUser, setTargetUser] = useState<User | null>(null);
   const queryClient = useQueryClient();
 
   // Get logged user from Redux
@@ -75,7 +75,7 @@ function Admin() {
     }: {
       id: string | number;
       status: "active" | "rejected" | "banned";
-    }) => changeUserStatus(id, status),
+    }) => changeUserStatus(String(id), status),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       setModal(false);
@@ -90,7 +90,7 @@ function Admin() {
     }: {
       id: string | number;
       status: "published" | "rejected";
-    }) => changeBlogStatus(id, status),
+    }) => changeBlogStatus(String(id), status),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
     },
@@ -158,7 +158,7 @@ function Admin() {
     // console.log("target user", targetUser);
 
     userStatusChangingMutation({
-      id: targetUser.id,
+      id: targetUser?.id ?? "",
       status: "active",
     });
   }
@@ -166,7 +166,7 @@ function Admin() {
   // Reject user
   function rejectUser() {
     userStatusChangingMutation({
-      id: targetUser.id,
+      id: targetUser?.id ?? "",
       status: "rejected",
     });
   }
@@ -174,14 +174,14 @@ function Admin() {
   // Ban user
   function banUser() {
     userStatusChangingMutation({
-      id: targetUser.id,
+      id: targetUser?.id ?? "",
       status: "banned",
     });
   }
 
   // Delete User
   function handleDeleteUser() {
-    deleteUserMutation.mutate(targetUser?.id);
+    deleteUserMutation.mutate(String(targetUser?.id));
   }
 
   // Blogs
@@ -307,19 +307,19 @@ function Admin() {
                       </td>
                       <td>
                         <button
-                          onClick={() => handlePublishingBlog(blog.id)}
+                          onClick={() => handlePublishingBlog(String(blog.id))}
                           className="btn approve"
                         >
                           Publish
                         </button>
                         <button
-                          onClick={() => handleRejectingBlog(blog.id)}
+                          onClick={() => handleRejectingBlog(String(blog.id))}
                           className="btn reject"
                         >
                           Reject
                         </button>
                         <button
-                          onClick={() => handleBlogDelete(blog.id)}
+                          onClick={() => handleBlogDelete(String(blog.id))}
                           className="btn reject"
                         >
                           Delete
@@ -357,7 +357,9 @@ function Admin() {
 
                       <td>
                         <button
-                          onClick={() => handleDeleteComment(comment.id)}
+                          onClick={() =>
+                            handleDeleteComment(String(comment.id))
+                          }
                           className="btn reject"
                         >
                           Delete
@@ -429,7 +431,7 @@ function Admin() {
               Choose what you want to do with <b>{targetUser?.username}?</b>
             </div>
             <div style={{ flexWrap: "wrap" }} className="action-modal__buttons">
-              {targetUser.id === user.id ? (
+              {targetUser?.id === user?.id ? (
                 <p>This is your account!</p>
               ) : (
                 <>

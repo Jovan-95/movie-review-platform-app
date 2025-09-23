@@ -9,8 +9,9 @@ import CreateReview from "./pages/single-pages/CreateReview";
 import PublicRoute from "./components/PublicRoute";
 import CreateNewBlog from "./pages/CreateNewBlog";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from "./Redux/usersSlice";
 import { ToastContainer } from "react-toastify";
+import type { AppDispatch } from "./Redux/store";
+import { fetchUsers } from "./Redux/usersSlice";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -22,7 +23,7 @@ const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchUsers());

@@ -8,12 +8,13 @@ export type RegisterFormUser = {
 
 // User
 export type User = {
+  id?: string;
   username: string;
   email: string;
   password: string;
-  id: string;
   role: "user" | "admin";
   status: string;
+  profileImage: string;
 };
 
 // Login user fields
@@ -35,7 +36,7 @@ export type Movie = {
 
 // Review
 export type Review = {
-  id: string;
+  id?: string;
   movieId: number;
   userId: string;
   rating: number;
@@ -45,29 +46,36 @@ export type Review = {
 
 // Blog
 export type Blog = {
-  id: string;
+  id?: string;
   title: string;
   content: string;
   authorId: string;
-  image: string;
   createdAt: string;
   status: string;
 };
 
 // Comment
 export type Comment = {
-  id: number;
+  id?: string; // UUID ili bilo koji string ID
   blogId: string;
   userId: string;
   comment: string;
-  date: number;
+  date: string;
+};
+
+export type UploadFileProps = {
+  currentUser: User;
+  editUserFormFields: (args: {
+    userId: string;
+    editedObj: Partial<User>;
+  }) => void;
 };
 
 // Notifications
 export type NotificationType = "success" | "error" | "info";
 
-export interface Notification {
+export type Notification = {
+  type: string;
   message: string;
-  type: NotificationType;
   timestamp: string;
-}
+};

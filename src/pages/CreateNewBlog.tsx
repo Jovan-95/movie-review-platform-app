@@ -3,7 +3,8 @@ import { useState } from "react";
 import { postBlog } from "../services";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Redux/store";
-import { showErrorToast, showInfoToast } from "../components/Toast";
+import { showErrorToast, showSuccessToast } from "../components/Toast";
+import type { Blog } from "../types";
 
 function CreateNewBlog() {
   const queryClient = useQueryClient();
@@ -20,8 +21,9 @@ function CreateNewBlog() {
     mutationFn: postBlog,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blog"] });
+      showSuccessToast("Your blog is created!");
     },
-    onError: (err) => {
+    onError: () => {
       showErrorToast("Registration failed!");
     },
   });
@@ -29,7 +31,7 @@ function CreateNewBlog() {
   // Find current logged user
   const loggedUser = useSelector((state: RootState) => state.auth.loggedInUser);
 
-  function handleAddNewBlog(e) {
+  function handleAddNewBlog(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
     if (
@@ -42,18 +44,15 @@ function CreateNewBlog() {
       return;
     }
 
-    const newBlog = {
-      id: String(Date.now()),
+    const newBlog: Blog = {
       title: blogObj.title,
       content: blogObj.content,
-      authorId: loggedUser?.id,
-      image: blogObj.image,
+      authorId: String(loggedUser?.id),
       createdAt: new Date().toLocaleString(),
-      status: "pending",
+      status: "published",
     };
 
     createBlogMut.mutate(newBlog);
-    showInfoToast("Your blog is submitted for review");
 
     blogObj.title = "";
     blogObj.category = "";
