@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../Redux/slice";
 import type { RootState } from "../Redux/store";
+import Logo from "../assets/images/movie-logo.png"; // prilagodi putanju komponenti
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -31,10 +32,7 @@ function Sidebar() {
       <div className="sidebar">
         <div className="sidebar-logo-wrapper">
           <div className="sidebar-logo-text">
-            <img
-              onClick={() => navigate("/")}
-              src="./src/assets/images/movie-logo.png"
-            />
+            <img onClick={() => navigate("/")} src={Logo} alt="Logo" />
           </div>
         </div>
         <div className="sidebar-nav-wrapper">
