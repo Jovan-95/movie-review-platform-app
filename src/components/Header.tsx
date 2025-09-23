@@ -84,15 +84,15 @@ function Header() {
   const user = useSelector((state: RootState) => state.auth.loggedInUser);
   // console.log("Header user", user);
 
-  const currentUser = users?.find(
-    (foundUser: User) => foundUser.id === user?.id
-  );
-
   // Error handling
   if (moviesIsLoading || reviewsIsLoading || blogsIsLoading || usersIsLoading)
     <div>{users ? users.length : "..."}</div>;
   if (moviesError || reviewsError || blogsError || usersError)
     return <p>{reviewsError?.message}</p>;
+
+  const currentUser = Array.isArray(users)
+    ? users.find((foundUser: User) => foundUser.id === user?.id)
+    : undefined;
 
   // console.log(movies.results);
   // console.log(blogs);
