@@ -22,7 +22,7 @@ function Header() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const results = useGlobalSearch(searchQuery);
-  console.log(results);
+  // console.log(results);
 
   function showNotificationsModal() {
     setNotificationsModal((prev) => !prev);

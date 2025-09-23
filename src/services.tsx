@@ -181,11 +181,13 @@ export async function getPopularMovies() {
     const res = await fetch(
       `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
     );
+
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+
     const data = await res.json();
-    // console.log(data);
-    return data;
+    return data ?? { results: [] }; // vrati prazne rezultate ako nema podataka
   } catch (err) {
-    console.log(err);
+    console.error("Failed to fetch popular movies:", err);
+    return { results: [] }; // 👈 fallback vrednost
   }
 }
