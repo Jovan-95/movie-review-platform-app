@@ -152,7 +152,23 @@ function Header() {
         </div>
         <div className="profile-wrapper">
           {user ? (
-            <div className="profile-name">{currentUser?.username}</div>
+            <>
+              {" "}
+              <div className="profile-name">{currentUser?.username}</div>
+              <div>
+                <img onClick={showNotificationsModal} src={bellIcon} alt="" />
+              </div>
+              <div className="img-wrapper">
+                <img
+                  onClick={() => navigate("/profile")}
+                  src={
+                    currentUser?.profileImage ||
+                    "https://via.placeholder.com/120"
+                  }
+                  alt=""
+                />
+              </div>
+            </>
           ) : (
             <div>
               <button
@@ -163,19 +179,6 @@ function Header() {
               </button>
             </div>
           )}
-
-          <div>
-            <img onClick={showNotificationsModal} src={bellIcon} alt="" />
-          </div>
-          <div className="img-wrapper">
-            <img
-              onClick={() => navigate("/profile")}
-              src={
-                currentUser?.profileImage || "https://via.placeholder.com/120"
-              }
-              alt=""
-            />
-          </div>
         </div>
       </div>
 
@@ -235,6 +238,11 @@ function Header() {
               <NavLink onClick={() => setMobModal(false)} to={"/profile"}>
                 <div className="sidebar-item">
                   <span>PROFILE</span>
+                </div>
+              </NavLink>
+              <NavLink to={"/users"} onClick={() => setMobModal(false)}>
+                <div className="sidebar-item">
+                  <span>USERS</span>
                 </div>
               </NavLink>
               {currentUser?.role === "admin" && (

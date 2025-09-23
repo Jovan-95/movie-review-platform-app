@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services";
 import type { RegisterFormUser, User } from "../types";
 import { showErrorToast, showInfoToast } from "../components/Toast";
+import Logo from "../assets/images/movie-logo.png"; // prilagodi putanju komponenti
 
 function Register() {
   const navigate = useNavigate();
@@ -84,10 +85,7 @@ function Register() {
     <div className="auth-wrapper">
       <div className="form-wrapper">
         <div className="auth-logo">
-          <img
-            onClick={() => navigate("/")}
-            src="./src/assets/images/movie-logo.png"
-          />
+          <img onClick={() => navigate("/")} src={Logo} alt="Logo" />
         </div>
         <div className="auth-heading">Register</div>
         <div className="input-wrapper">

@@ -20,7 +20,7 @@ function Review() {
     isLoading: moviesIsLoading,
     error: moviesError,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["movies"],
     queryFn: getPopularMovies,
   });
 

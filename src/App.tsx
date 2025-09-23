@@ -16,6 +16,8 @@ import { fetchUsers } from "./Redux/usersSlice";
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
 const Blog = lazy(() => import("./pages/Blog"));
+const Users = lazy(() => import("./pages/Users"));
+const SingleUser = lazy(() => import("./pages/single-pages/SingleUser"));
 const Review = lazy(() => import("./pages/Review"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Admin = lazy(() => import("./pages/Admin"));
@@ -122,6 +124,22 @@ function App() {
               element={
                 <PrivateRoute>
                   <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/users"
+              element={
+                <PrivateRoute>
+                  <Users />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/users/:id"
+              element={
+                <PrivateRoute>
+                  <SingleUser />
                 </PrivateRoute>
               }
             />

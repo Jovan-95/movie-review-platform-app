@@ -11,6 +11,7 @@ import {
 } from "../components/Toast";
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../services";
+import Logo from "../assets/images/movie-logo.png"; // prilagodi putanju komponenti
 
 function Login() {
   const navigate = useNavigate();
@@ -78,10 +79,7 @@ function Login() {
     <div className="auth-wrapper">
       <div className="form-wrapper">
         <div className="auth-logo">
-          <img
-            onClick={() => navigate("/")}
-            src="./src/assets/images/movie-logo.png"
-          />
+          <img onClick={() => navigate("/")} src={Logo} alt="Logo" />
         </div>
         <div className="auth-heading">Login</div>
 

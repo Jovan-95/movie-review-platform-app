@@ -88,7 +88,14 @@ function SingleReview() {
             </p>
             <p className="single-movie__meta">
               <span className="single-movie__year">
-                Date: {singleReview?.date}
+                Date:{" "}
+                {singleReview?.date
+                  ? new Date(singleReview.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : "N/A"}
               </span>
             </p>
             <button

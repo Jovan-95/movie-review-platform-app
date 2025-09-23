@@ -53,7 +53,15 @@ function Blog() {
                 /> */}
                 <h3 className="card__title">{blog.title}</h3>
                 <p>{blog.content}</p>
-                <p className="card__meta">{blog.createdAt}</p>
+                <p className="card__meta">
+                  {blog?.createdAt
+                    ? new Date(blog.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : "N/A"}
+                </p>
               </div>
             </NavLink>
           ))}

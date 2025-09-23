@@ -66,6 +66,11 @@ function Sidebar() {
                   <span>PROFILE</span>
                 </div>
               </NavLink>
+              <NavLink to={"/users"}>
+                <div className="sidebar-item">
+                  <span>USERS</span>
+                </div>
+              </NavLink>
               {user?.role === "admin" && (
                 <NavLink to={"/admin"}>
                   <div className="sidebar-item">

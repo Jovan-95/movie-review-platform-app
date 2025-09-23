@@ -69,7 +69,10 @@ function SingleBlog() {
 
             <p className="single-movie__meta">
               <span className="single-movie__year">
-                Release Date: {singleBlog?.createdAt}
+                Date:{" "}
+                {singleBlog?.createdAt
+                  ? new Date(singleBlog.createdAt).toLocaleString()
+                  : "N/A"}{" "}
               </span>
             </p>
 

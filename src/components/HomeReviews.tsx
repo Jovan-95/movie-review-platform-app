@@ -31,7 +31,16 @@ function HomeReviews() {
               {review.content}
             </p>
             {/* TODO Jovan, find author of the review with ID */}
-            <p className="review__author">– {review.date}</p>
+            <p className="review__author">
+              –
+              {review?.date
+                ? new Date(review.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                : "N/A"}
+            </p>
           </div>
         ))}
       </div>
