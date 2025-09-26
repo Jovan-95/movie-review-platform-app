@@ -3,7 +3,7 @@ import searchIcon from "../assets/icons/search-icon.svg";
 import bellIcon from "../assets/icons/bell-icon.svg";
 import Modal from "./Modal";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../Redux/store";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -12,10 +12,13 @@ import useGlobalSearch from "../hooks/useGlobalSearch";
 import Notifications from "./Notifications";
 import type { User } from "../types";
 import MobileModal from "./MobileModalNav";
+import { logoutUser } from "../Redux/slice";
 
 function Header() {
   const [notificationsModal, setNotificationsModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [logoutModal, setLogoutModal] = useState<boolean>(false);
 
   // Mobile modal
   const [mobModal, setMobModal] = useState(false);
@@ -101,6 +104,17 @@ function Header() {
 
   function handleMobileNavModal() {
     setMobModal((prev) => !prev);
+  }
+
+  // Modal
+  function handleLogoutModal() {
+    setLogoutModal((prev) => !prev);
+  }
+
+  // Logout
+  function handleLogoutUser() {
+    dispatch(logoutUser());
+    navigate("/login");
   }
 
   return (
@@ -252,12 +266,51 @@ function Header() {
                   </div>
                 </NavLink>
               )}
+              {currentUser ? (
+                <div className="logout">
+                  <div>
+                    <button
+                      onClick={handleLogoutModal}
+                      className="btn btn--primary"
+                    >
+                      {" "}
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+
+              {/* Logout */}
             </div>
           </div>
         </MobileModal>
       ) : (
         ""
       )}
+
+      <div className={logoutModal ? "d-block" : "d-none"}>
+        <Modal>
+          <div className="p-20">
+            <p>Are you sure you want to logout?</p>
+            <div>
+              <button
+                onClick={handleLogoutUser}
+                className="btn btn--primary mr-16"
+              >
+                <span>Yes</span>
+              </button>
+              <button
+                onClick={() => setLogoutModal(false)}
+                className="btn btn-primary "
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
+      </div>
 
       <div className="boxes-wrapper">
         <div className="box mr-16">
