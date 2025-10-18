@@ -4,6 +4,7 @@ import { getPopularMovies } from "../services";
 import type { Movie } from "../types";
 import { NavLink } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
+import { Grid } from "ldrs/react";
 
 function Movies() {
   // Getting movies
@@ -17,7 +18,12 @@ function Movies() {
   });
 
   // Error handling
-  if (moviesIsLoading) return <p>Loading...</p>;
+  if (moviesIsLoading)
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (moviesError) return <p>{moviesError?.message}</p>;
   return (
     <div className="home">

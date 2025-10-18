@@ -3,6 +3,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { getPopularMovies, getReviews, getUsers } from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import type { Movie, Review, User } from "../../types";
+import { Grid } from "ldrs/react";
 
 function SingleMovie() {
   const { id } = useParams();
@@ -40,7 +41,11 @@ function SingleMovie() {
 
   // Error handling
   if (moviesIsLoading || reviewsIsLoading || usersIsLoading)
-    return <p>Loading...</p>;
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (moviesError || reviewsError || usersError)
     return <p>{moviesError?.message}</p>;
 

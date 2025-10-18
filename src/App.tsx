@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import type { AppDispatch } from "./Redux/store";
 import { fetchUsers } from "./Redux/usersSlice";
+import { Grid } from "ldrs/react";
+import "ldrs/react/Grid.css";
 
 const Home = lazy(() => import("./pages/Home"));
 const Movies = lazy(() => import("./pages/Movies"));
@@ -33,7 +35,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<h2>Loading...</h2>}>
+      <Suspense
+        fallback={
+          <div className="loading-wrapper">
+            <Grid size="100" speed="1" color="#2a5298 " />
+          </div>
+        }
+      >
         <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           <Route

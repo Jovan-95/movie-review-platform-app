@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPopularMovies, getReviews, getUsers } from "../../services";
 import type { Movie, Review, User } from "../../types";
+import { Grid } from "ldrs/react";
 
 function SingleReview() {
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -41,7 +42,11 @@ function SingleReview() {
 
   // Error handling
   if (reviewsIsLoading || moviesIsLoading || usersIsLoading)
-    return <p>Loading...</p>;
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (reviewsError || moviesError || usersError)
     return <p>{reviewsError?.message}</p>;
   if (!reviews || !movies || !users) return <p>No data found.</p>;

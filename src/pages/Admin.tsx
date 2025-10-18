@@ -18,6 +18,7 @@ import Modal from "../components/Modal";
 import { showErrorToast, showSuccessToast } from "../components/Toast";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Redux/store";
+import { Grid } from "ldrs/react";
 
 function Admin() {
   const [modal, setModal] = useState<boolean>(false);
@@ -221,7 +222,11 @@ function Admin() {
   if (!Array.isArray(users)) return null;
 
   if (usersIsLoading || blogsIsLoading || commentIsLoading || reviewsIsLoading)
-    return <p>Loading...</p>;
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (usersError || blogsError || commentError || reviewsError)
     return <p>{usersError?.message}</p>;
   if (!users || !blogs || !comments || !reviews) return <p>No data found.</p>;

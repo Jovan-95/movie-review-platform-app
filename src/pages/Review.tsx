@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPopularMovies, getReviews } from "../services";
 import type { Movie, Review } from "../types";
 import { NavLink } from "react-router-dom";
+import { Grid } from "ldrs/react";
 
 function Review() {
   // Getting review
@@ -25,7 +26,12 @@ function Review() {
   });
 
   // Error handling
-  if (reviewsIsLoading || moviesIsLoading) return <p>Loading...</p>;
+  if (reviewsIsLoading || moviesIsLoading)
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (reviewsError || moviesError) return <p>{reviewsError?.message}</p>;
   return (
     <div className="home">

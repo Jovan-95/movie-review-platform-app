@@ -37,8 +37,8 @@ function CreateNewBlog() {
     if (
       blogObj.title === "" ||
       blogObj.category === "" ||
-      blogObj.content === "" ||
-      blogObj.image === ""
+      blogObj.content === ""
+      // blogObj.image === ""
     ) {
       showErrorToast("Fill all fields!");
       return;
@@ -47,6 +47,7 @@ function CreateNewBlog() {
     const newBlog: Blog = {
       title: blogObj.title,
       content: blogObj.content,
+      category: blogObj.category,
       authorId: String(loggedUser?.id),
       createdAt: new Date().toLocaleString(),
       status: "published",
@@ -57,7 +58,7 @@ function CreateNewBlog() {
     blogObj.title = "";
     blogObj.category = "";
     blogObj.content = "";
-    blogObj.image = "";
+    // blogObj.image = "";
   }
   return (
     <div className="create-blog-page">
@@ -97,7 +98,7 @@ function CreateNewBlog() {
           </select>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="image" className="form-label">
             Cover Image URL
           </label>
@@ -109,7 +110,7 @@ function CreateNewBlog() {
             className="form-input"
             placeholder="https://example.com/image.jpg"
           />
-        </div>
+        </div> */}
 
         <div className="form-group">
           <label htmlFor="content" className="form-label">

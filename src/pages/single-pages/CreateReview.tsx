@@ -7,6 +7,7 @@ import type { Review, User } from "../../types";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../Redux/store";
 import { showErrorToast, showSuccessToast } from "../../components/Toast";
+import { Grid } from "ldrs/react";
 
 function CreateReview() {
   const { id } = useParams();
@@ -41,7 +42,12 @@ function CreateReview() {
 
   // Error handling
   if (!loggedUser) return <p>User now found!</p>;
-  if (usersIsLoading) return <p>Loading...</p>;
+  if (usersIsLoading)
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (usersError) return <p>{usersError?.message}</p>;
   if (!users) return <p>No data found.</p>;
 

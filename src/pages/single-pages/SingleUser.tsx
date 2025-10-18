@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUsers } from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import type { User } from "../../types";
+import { Grid } from "ldrs/react";
 
 function SingleUser() {
   const { id } = useParams();
@@ -20,7 +21,12 @@ function SingleUser() {
   const singleUser = users?.find((user: User) => user.id === id);
 
   // Error handling
-  if (usersIsLoading) return <p>Loading...</p>;
+  if (usersIsLoading)
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (usersError) return <p>{usersError?.message}</p>;
   if (!users) return <p>No data found.</p>;
 

@@ -52,6 +52,7 @@ export type Blog = {
   authorId: string;
   createdAt: string;
   status: string;
+  category: string;
 };
 
 // Comment

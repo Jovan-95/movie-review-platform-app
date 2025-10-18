@@ -109,6 +109,10 @@ a {
   margin-top: 16px;
 }
 
+.mt-6 {
+  margin-top: 6px;
+}
+
 .text-18 {
   font-size: 18px !important;
 }
@@ -121,4 +125,11 @@ a {
   white-space: nowrap; /* Prevents text from wrapping to the next line */
   overflow: hidden; /* Hides any content that overflows the element's box */
   text-overflow: ellipsis; /* Displays an ellipsis (...) to indicate truncated text */
+}
+
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
 }

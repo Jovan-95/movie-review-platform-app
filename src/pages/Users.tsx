@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../services";
 import type { User } from "../types";
 import { NavLink } from "react-router-dom";
+import { Grid } from "ldrs/react";
 
 function Users() {
   const {
@@ -13,7 +14,12 @@ function Users() {
     queryFn: getUsers,
   });
 
-  if (usersIsLoading) return <p>Loading...</p>;
+  if (usersIsLoading)
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (usersError) return <p>{usersError?.message}</p>;
   if (!Array.isArray(users) || users.length === 0) return <p>No users found</p>;
 

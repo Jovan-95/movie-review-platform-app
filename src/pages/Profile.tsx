@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../Redux/slice";
 import { showErrorToast, showSuccessToast } from "../components/Toast";
 import UploadFile from "../components/UploadFile";
+import { Grid } from "ldrs/react";
 
 function Profile() {
   const [modal, setModal] = useState<boolean>(false);
@@ -54,7 +55,12 @@ function Profile() {
 
   // Error handling
   if (!loggedUser) return <p>User now found!</p>;
-  if (usersIsLoading) return <p>Loading...</p>;
+  if (usersIsLoading)
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (usersError) return <p>{usersError?.message}</p>;
   if (!users) return <p>No data found.</p>;
 

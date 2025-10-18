@@ -6,6 +6,7 @@ import type { Blog, User } from "../../types";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../Redux/store";
 import CommentComp from "../../components/Comment";
+import { Grid } from "ldrs/react";
 
 function SingleBlog() {
   const { id } = useParams();
@@ -36,7 +37,12 @@ function SingleBlog() {
 
   // Error handling
   if (!loggedUser) return <p>User now found!</p>;
-  if (blogsIsLoading || usersIsLoading) return <p>Loading...</p>;
+  if (blogsIsLoading || usersIsLoading)
+    return (
+      <div className="loading-wrapper">
+        <Grid size="100" speed="1" color="#2a5298 " />
+      </div>
+    );
   if (blogsError || usersError)
     return <p>{blogsError?.message || usersError?.message}</p>;
   if (!blogs || !users) return <p>No data found.</p>;
