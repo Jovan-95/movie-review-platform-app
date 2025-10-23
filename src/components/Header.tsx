@@ -100,7 +100,7 @@ function Header() {
   // console.log(movies.results);
   // console.log(blogs);
   // console.log(users);
-  // console.log(reviews);
+  console.log(reviews);
 
   function handleMobileNavModal() {
     setMobModal((prev) => !prev);
@@ -150,9 +150,12 @@ function Header() {
                 results.map((item) => (
                   <NavLink key={item.id} to={`/${item.type}/${item.id}`}>
                     {" "}
-                    <div key={item.id} className="search-result">
+                    <div
+                      key={item.id}
+                      className="search-result truncate-single-line"
+                    >
                       <strong>{item.type.toUpperCase()}:</strong>{" "}
-                      {item.title || item.username}
+                      {item.title || item.username || item.content}
                     </div>
                   </NavLink>
                 ))

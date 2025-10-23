@@ -80,3 +80,11 @@ export type Notification = {
   message: string;
   timestamp: string;
 };
+
+// Pagination props
+export type PaginationProps = {
+  totalItems: number;
+  currentPage: number;
+  itemsPerPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+};
